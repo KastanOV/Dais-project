@@ -1,0 +1,148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="KAS0110.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">Pneuservis IS</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Login">Přihlásit</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="admin">
+                                <ContentTemplate>
+                                    <ul id="navMenu">
+                                        <li><a runat="server" href="~/">Zaměstnanci</a>
+                                            <ul>
+                                                <li><a runat="server" href="~/Employees/AddEmployee">Přidat zaměstnance</a></li>
+                                                <li><a runat="server" href="~/Employees/ListEmployee">Seznam Zaměstnanců</a></li>
+                                                <li><a runat="server" href="~/Employees/Wages">Výplata</a></li>
+                                                <li><a runat="server" href="~/Employees/Attendance">Docházka</a></li>
+                                                <li><a runat="server" href="~/Employees/ShowAttendance">Přehled šichet</a></li>
+                                                <li><a runat="server" href="~/Contracts/Contracts">Zakázky</a></li>
+                                                <li><a runat="server" href="~/Contracts/ContractsList">Evidence zakázek</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a runat="server" href="~/">Sklady</a>
+                                            <ul>
+                                                <li><a runat="server" href="~/Store/ExtStore">Vyhledávání pneumatik</a></li>
+                                                <li><a runat="server" href="~/Store/StoreWheels">Uskladnění pneumatik</a></li>
+                                                <li><a runat="server" href="~/Store/BazarTires">Bazar</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a runat="server" href="~/">Klienti</a>
+                                            <ul>
+                                                <li><a runat="server" href="~/Customers/AddCustomer">Přidat klienta</a></li>
+                                                <li><a runat="server" href="~/Customers/Customers">Seznam klientů</a></li>
+                                                
+                                                <li><a runat="server" href="~/Customers/orders">Objednávky</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a runat="server" href="~/Account/Register">Nový uživatel</a></li>
+                                        <li><a runat="server" href="~/Account/Manage" title="Manage your account">Čest práci, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                        <li>
+                                            <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Odhlásit" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                        </li>
+                                    </ul>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                        </RoleGroups>
+                        <LoggedInTemplate>
+                            <ul id="navMenu">
+                                <li><a runat="server" href="~/">Zaměstnanci</a>
+                                    <ul>
+                                        <li><a runat="server" href="~/Employees/Attendance">Docházka</a></li>
+                                        <li><a runat="server" href="~/Employees/ShowAttendance">Přehled šichet</a></li>
+                                        <li><a runat="server" href="~/Contracts/Contracts">Zakázky</a></li>
+                                        <li><a runat="server" href="~/Contracts/ContractsList">Evidence zakázek</a></li>
+                                        
+                                    </ul>
+                                </li>
+                                <li><a runat="server" href="~/">Sklady</a>
+                                    <ul>
+                                        <li><a runat="server" href="~/Store/ExtStore">Vyhledávání pneumatik</a></li>
+                                        <li><a runat="server" href="~/Store/StoreWheels">Uskladnění pneumatik</a></li>
+                                        <li><a runat="server" href="~/Store/BazarTires">Bazar</a></li>
+                                    </ul>
+                               </li>
+                               <li><a runat="server" href="~/">Klienti</a>
+                                   <ul>
+                                       <li><a runat="server" href="~/Customers/AddCustomer">Přidat klienta</a></li>
+                                       <li><a runat="server" href="~/Customers/Customers">Seznam klientů</a></li>
+                                       <li><a runat="server" href="~/Customers/orders">Objednávky</a></li>
+                                   </ul>
+                              </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Dobrý den, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Odhlásit" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Created by Kaštura Jaroslav</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
