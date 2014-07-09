@@ -19,7 +19,7 @@ namespace KAS0110.Models.Database
         string SQL_WAGE = "select sum(Wage) from EmployeeAttendance where Employees_id = @p_EmployeeID and Paid = 0";
         string SQL_WAGE_LIST = "select * from EmployeeAttendance where Employees_id = @p_EmployeeID and Paid = 0";
         string SQL_PAY_WAGE = "update EmployeeAttendance set paid  = 1 where Employees_id = @p_EmployeeID and \"Exit\" is not null";
-                
+        string SQL_TEST_GITHUB = "NAsrat";        
         
         string connectionString;
 
