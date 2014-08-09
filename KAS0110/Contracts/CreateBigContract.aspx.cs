@@ -29,13 +29,34 @@ namespace KAS0110
             var data = (from i in db.Contracts
                        join j in db.Customers on i.Customers_id equals j.id
                        where i.GarageNumber == id && i.CustomerExit == null
-                       select new { j.adress, j.city, j.CompanyName, j.DIC, j.fname, j.ICO, j.lname, j.postalCode }).First();
+                       select new { j.adress, j.city, j.CompanyName, j.DIC, j.fname, j.ICO, j.lname, j.postalCode, i.id }).First();
             CompanyName.Text = data.CompanyName;
             CustName.Text = data.lname + " " + data.fname;
             Adress.Text = data.adress + " " + data.city + " " + data.postalCode;
             IC.Text = data.ICO;
             DIC.Text = data.DIC;
-
+            ContractID.Value = data.id.ToString();
         }
+
+        protected void ButtonAddWork_Click(object sender, EventArgs e)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            var item = (from i in db.WorkItemsReadies
+                        where i.id == Int32.Parse(DropDownList2.Text)
+                        select i).First();
+            WorkItem items = new WorkItem() 
+            {
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                COUNT = Int32.Parse(TextBox1.Text),
+                Contract_id = Int32.Parse(ContractID.Value)
+            };
+            db.WorkItems.InsertOnSubmit(items);
+            db.SubmitChanges();
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
+        }
+
+        
     }
 }

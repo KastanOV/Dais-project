@@ -291,6 +291,7 @@
     <Compile Include="Models\Database\Employee.cs" />
     <Compile Include="Models\Database\EmployeeDetail.cs" />
     <Compile Include="Models\Database\EmployeeTable.cs" />
+    <Compile Include="Models\Database\ItemsTable.cs" />
     <Compile Include="Models\Database\OkPneuTire.cs" />
     <Compile Include="Models\Database\OkPneuTireOrderExtended.cs" />
     <Compile Include="Models\Database\OkPneuTireTable.cs" />
