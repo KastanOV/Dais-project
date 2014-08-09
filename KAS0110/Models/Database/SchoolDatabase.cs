@@ -14,12 +14,10 @@ namespace KAS0110.Models.Database
         SqlTransaction mSqlTransaction = null;
         private String mLanguage = "en";
         private string connectionString;
-        // private static String CONNECTION_STRING = "server=dbsys.cs.vsb.cz\\STUDENT;database=dais;user=dais;password=tuo460DbEd;";
 
-        
         public SchoolDatabase()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
             mConnection = new SqlConnection();
         }
 
@@ -45,7 +43,6 @@ namespace KAS0110.Models.Database
 
             if (mConnection.State != System.Data.ConnectionState.Open)
             {
-                // ret = Connect(CONNECTION_STRING);
                 ret = Connect(connectionString);
             }
 

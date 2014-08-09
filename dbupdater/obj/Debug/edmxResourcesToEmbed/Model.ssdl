@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabasePneuservisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="SuplierTiresOKpneu">
+    <Key>
+      <PropertyRef Name="EAN" />
+    </Key>
+    <Property Name="EAN" Type="varchar" MaxLength="14" Nullable="false" />
+    <Property Name="Manufacturer" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+    <Property Name="ExternalStore" Type="int" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="15" />
+    <Property Name="OnStore" Type="int" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="season" Type="char" MaxLength="1" />
+    <Property Name="Description" Type="varchar" MaxLength="2000" />
+    <Property Name="Photo" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityContainer Name="DatabasePneuservisModelStoreContainer">
+    <EntitySet Name="SuplierTiresOKpneu" EntityType="Self.SuplierTiresOKpneu" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

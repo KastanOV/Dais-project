@@ -20,7 +20,7 @@ namespace KAS0110.Models.Database
 
         public ContractTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
         }
 
         public int Arrival(Contract con)

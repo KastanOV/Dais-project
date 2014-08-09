@@ -85,6 +85,33 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.TextBox TextBoxPlatba3;
         
         /// <summary>
+        /// ButtonAddTire1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAddTire1;
+        
+        /// <summary>
+        /// ButtonAddTire2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAddTire2;
+        
+        /// <summary>
+        /// ButtonAddTire3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAddTire3;
+        
+        /// <summary>
         /// CheckBox1 control.
         /// </summary>
         /// <remarks>

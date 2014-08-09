@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.UI.WebControls;
 
+
 namespace KAS0110.Models.Database
 {
     public class OkPneuTireTable
@@ -15,6 +16,7 @@ namespace KAS0110.Models.Database
         string SQL_INSERT = "exec InsertNewTire @p_EAN, @p_manufacturer, @p_Size, @p_ExternalStore, @p_code, @p_Photo, @p_Description, @p_OnStore, @p_Price, @p_Name, @p_season;";
         string SQL_UPDATE = "exec UpdateTires @p_EAN, @p_Price, @p_ExternalStore";
         string SQL_SELECT_BY_DETAIL = "select * from SuplierTiresOKpneu where Size = @p_Size";
+        string SQL_SELECT_BY_DETAIL_SIZE_WITHOUT_MANU = "select * from SuplierTiresOKpneu where Size = @p_Size and season = @p_Season and ExternalStore >= @p_OnExternalStore and OnStore >= @p_OnLocalStore";
         string SQL_SELECT_BY_DETAIL_SIZE = "select * from SuplierTiresOKpneu where Size = @p_Size and season = @p_Season and ExternalStore >= @p_OnExternalStore and OnStore >= @p_OnLocalStore and manufacturer = @p_manu";
         string SQL_FIND_MANUFACTURER = "select distinct(manufacturer) from SuplierTiresOKpneu order by manufacturer";
         string SQL_FIND_BY_EAN = "select Name, Price from SuplierTiresOKpneu where EAN = @p_EAN";
@@ -22,7 +24,7 @@ namespace KAS0110.Models.Database
 
         public OkPneuTireTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
         }
 
         public int Insert(OkPneuTire tire)
@@ -71,6 +73,7 @@ namespace KAS0110.Models.Database
             SqlCommand command = db.CreateCommand(SQL_FIND_MANUFACTURER);
             SqlDataReader reader = db.Select(command);
             List<ListItem> tires = new List<ListItem>();
+            tires.Add(new ListItem("Všichni výrobci", "x", true));
             while (reader.Read())
             {
                 ListItem l1 = new ListItem(reader.GetString(0), "x", true);
@@ -115,30 +118,75 @@ namespace KAS0110.Models.Database
 
                 SchoolDatabase db = new SchoolDatabase();
                 db.Connect();
+                if (manu != "Všichni výrobci")
+                {
+                    SqlCommand command = db.CreateCommand(SQL_SELECT_BY_DETAIL_SIZE);
+                    command.Parameters.Add(new SqlParameter("@p_Size", SqlDbType.Int));
+                    command.Parameters["@p_Size"].Value = size;
+                    command.Parameters.Add(new SqlParameter("@p_Season", SqlDbType.Char, 1));
+                    command.Parameters["@p_Season"].Value = season;
+                    command.Parameters.Add(new SqlParameter("@p_OnExternalStore", SqlDbType.Int));
+                    command.Parameters["@p_OnExternalStore"].Value = min;
+                    command.Parameters.Add(new SqlParameter("@p_OnLocalStore", SqlDbType.Int));
+                    command.Parameters["@p_OnLocalStore"].Value = minL;
+                    command.Parameters.Add(new SqlParameter("@p_manu", SqlDbType.VarChar, 10));
+                    command.Parameters["@p_manu"].Value = manu;
 
-                SqlCommand command = db.CreateCommand(SQL_SELECT_BY_DETAIL_SIZE);
+                    SqlDataReader reader = db.Select(command);
 
-                command.Parameters.Add(new SqlParameter("@p_Size", SqlDbType.Int));
-                command.Parameters["@p_Size"].Value = size;
-                command.Parameters.Add(new SqlParameter("@p_Season", SqlDbType.Char, 1));
-                command.Parameters["@p_Season"].Value = season;
-                command.Parameters.Add(new SqlParameter("@p_OnExternalStore", SqlDbType.Int));
-                command.Parameters["@p_OnExternalStore"].Value = min;
-                command.Parameters.Add(new SqlParameter("@p_OnLocalStore", SqlDbType.Int));
-                command.Parameters["@p_OnLocalStore"].Value = minL;
-                command.Parameters.Add(new SqlParameter("@p_manu", SqlDbType.VarChar, 10));
-                command.Parameters["@p_manu"].Value = manu;
+                    List<OkPneuTire> tires = Read(reader);
+                    reader.Close();
+                    db.Close();
+                    return tires;
+                }
+                else
+                {
 
-                SqlDataReader reader = db.Select(command);
+                    SqlCommand command = db.CreateCommand(SQL_SELECT_BY_DETAIL_SIZE_WITHOUT_MANU);
+                    command.Parameters.Add(new SqlParameter("@p_Size", SqlDbType.Int));
+                    command.Parameters["@p_Size"].Value = size;
+                    command.Parameters.Add(new SqlParameter("@p_Season", SqlDbType.Char, 1));
+                    command.Parameters["@p_Season"].Value = season;
+                    command.Parameters.Add(new SqlParameter("@p_OnExternalStore", SqlDbType.Int));
+                    command.Parameters["@p_OnExternalStore"].Value = min;
+                    command.Parameters.Add(new SqlParameter("@p_OnLocalStore", SqlDbType.Int));
+                    command.Parameters["@p_OnLocalStore"].Value = minL;
 
-                List<OkPneuTire> tires = Read(reader);
-                reader.Close();
-                db.Close();
-                return tires;
+                    SqlDataReader reader = db.Select(command);
+
+                    List<OkPneuTire> tires = Read(reader);
+                    reader.Close();
+                    db.Close();
+                    return tires;
+                }
+
+                
             }
             else return null;
         }
-        
+        private static string MakeDetail(string imput)
+        {
+            int strlenght = imput.Length;
+            char[] tmp = new char[7]; char[] sirkach = new char[3]; char[] vyskach = new char[2]; char[] prumerch = new char[2]; int count = 0;
+            for (int i = 0; i < strlenght; i++)
+            {
+                if (Char.IsNumber(imput, i) && count < 7)
+                {
+                    tmp[count] = imput[i];
+                    count++;
+                }
+            }
+            count = 0;
+            for (int i = 0; i < 3; i++) { sirkach[i] = tmp[count]; count++; }
+            for (int i = 0; i < 2; i++) { vyskach[i] = tmp[count]; count++; }
+            for (int i = 0; i < 2; i++) { prumerch[i] = tmp[count]; count++; }
+            string sirka = new string(sirkach);
+            string vyska = new string(vyskach);
+            string prumer = new string(prumerch);
+            string rozmer = new string(tmp);
+            //Console.WriteLine("{0}{1}{2}", sirka, vyska, prumer);
+            return String.Format("{0}{1}{2}", sirka, vyska, prumer);
+        }
         private List<OkPneuTire> Read(SqlDataReader reader)
         {
             List<OkPneuTire> Tires = new List<OkPneuTire>();

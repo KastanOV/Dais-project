@@ -434,6 +434,100 @@ DELETE
 UPDATE NO ACTION
 GO
 
+CREATE
+  TABLE Items
+  (
+    id           INTEGER NOT NULL IDENTITY NOT FOR REPLICATION ,
+    EAN          VARCHAR (15) NOT NULL ,
+    Name         VARCHAR (20) NOT NULL ,
+    Description  VARCHAR (200) ,
+    PricePerItem INTEGER NOT NULL ,
+    COUNT        INTEGER NOT NULL ,
+    Contract_id  INTEGER NOT NULL ,
+    CONSTRAINT Items_PK PRIMARY KEY CLUSTERED (id)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+
+
+CREATE
+  TABLE WorkItems
+  (
+    id          INTEGER NOT NULL IDENTITY NOT FOR REPLICATION ,
+    Name        VARCHAR (20) NOT NULL ,
+    Description VARCHAR (200) NOT NULL ,
+    Price       INTEGER NOT NULL ,
+    COUNT       INTEGER NOT NULL ,
+    Contract_id INTEGER NOT NULL ,
+    CONSTRAINT WorkItems_PK PRIMARY KEY CLUSTERED (id)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+
+
+
+ALTER TABLE Items
+ADD CONSTRAINT Items_Contract_FK FOREIGN KEY
+(
+Contract_id
+)
+REFERENCES Contract
+(
+id
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+ALTER TABLE WorkItems
+ADD CONSTRAINT WorkItems_Contract_FK FOREIGN KEY
+(
+Contract_id
+)
+REFERENCES Contract
+(
+id
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+Alter table Customers
+add CompanyName Varchar(50) null
+
+Alter table Customers
+add ICO Varchar(10)
+
+Alter table Customers
+add DIC Varchar(12)
+
+CREATE TABLE [dbo].[WorkItemsReady] (
+    [id]          INT            NOT NULL,
+    [Name]        VARCHAR (20)  NOT NULL,
+    [Description] VARCHAR (200) NOT NULL,
+    [Price]       INT           NOT NULL,
+    
+);
+ALTER TABLE [dbo].[WorkItemsReady] 
+    ADD CONSTRAINT WorkItemsReady_PK PRIMARY KEY CLUSTERED (id)
 
 -- Oracle SQL Developer Data Modeler Summary Report: 
 -- 

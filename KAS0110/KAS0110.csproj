@@ -44,6 +44,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -179,6 +182,13 @@
     <Content Include="Customers\Orders.aspx" />
     <Content Include="Customers\AddOrder.aspx" />
     <Content Include="Contracts\ContractsList.aspx" />
+    <Content Include="Contracts\CreateBigContract.aspx" />
+    <Content Include="Models\Linq\DataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Contracts\WorkItemsReady.aspx" />
     <None Include="Properties\PublishProfiles\Kastan.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -292,6 +302,11 @@
     <Compile Include="Models\Database\StoredWheelsTable.cs" />
     <Compile Include="Models\Database\test.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Linq\DataClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -455,10 +470,33 @@
     <Compile Include="Contracts\ContractsList.aspx.designer.cs">
       <DependentUpon>ContractsList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\CreateBigContract.aspx.cs">
+      <DependentUpon>CreateBigContract.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contracts\CreateBigContract.aspx.designer.cs">
+      <DependentUpon>CreateBigContract.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\WorkItemsReady.aspx.cs">
+      <DependentUpon>WorkItemsReady.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contracts\WorkItemsReady.aspx.designer.cs">
+      <DependentUpon>WorkItemsReady.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Linq\DataClasses.dbml.layout">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

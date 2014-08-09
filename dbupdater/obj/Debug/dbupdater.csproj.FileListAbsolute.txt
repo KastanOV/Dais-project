@@ -1,0 +1,9 @@
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\DatabasePneuservis.mdf
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\DatabasePneuservis_log.ldf
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\EntityFramework.dll
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\EntityFramework.xml
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\obj\Debug\dbupdater.csprojResolveAssemblyReference.cache
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\obj\Debug\dbupdater.exe
+C:\Users\Topr\Documents\GitHub\Dais-project\dbupdater\obj\Debug\dbupdater.pdb

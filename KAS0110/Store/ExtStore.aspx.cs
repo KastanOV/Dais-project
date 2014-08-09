@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace KAS0110
 {
     public partial class WebForm9 : System.Web.UI.Page
@@ -41,6 +42,16 @@ namespace KAS0110
             }
             string redir = "~/Customers/AddOrder.aspx?EAN=" + EAN;
             Response.Redirect(redir);
+
+        }
+
+        protected void ObjectDataSource2_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+
+        }
+
+        protected void CheckBoxExtStore_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }

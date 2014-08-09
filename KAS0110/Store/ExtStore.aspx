@@ -1,18 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ExtStore.aspx.cs" Inherits="KAS0110.WebForm9" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Externí sklad pneumatik OK Pneu</h2>
-    <asp:TextBox ID="TextBoxSize" runat="server" OnTextChanged="TextBoxSize_TextChanged"></asp:TextBox>
+    <asp:TextBox ID="TextBoxSize" runat="server" OnTextChanged="TextBoxSize_TextChanged" CssClass="form-control"></asp:TextBox>
     <br />
     <asp:Label ID="Label1" runat="server" Text="Rozměr pneumatik zadávejte v profi formátu. Např: 1956515 <=> 195/65R15"></asp:Label>
     <br />
     <br />
-    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="ObjectDataSource1" DataTextField="Text" DataValueField="Text" AutoPostBack="True"></asp:DropDownList>
+    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="ObjectDataSource1" DataTextField="Text" DataValueField="Text" AutoPostBack="True" CssClass="form-control"></asp:DropDownList>
+    
+    <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" CssClass="form-control"></asp:DropDownList>
     <br />
-    <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True"></asp:DropDownList>
+    <asp:CheckBox ID="CheckBoxExtStore" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="CheckBoxExtStore_CheckedChanged" /><asp:Label ID="LabelExtStore" runat="server" Text="Pneumatiky jsou skladem u dodavatele"></asp:Label>
     <br />
-    <asp:CheckBox ID="CheckBoxExtStore" runat="server" Checked="True" /><asp:Label ID="LabelExtStore" runat="server" Text="Pneumatiky jsou skladem u dodavatele"></asp:Label>
-    <br />
-    <asp:CheckBox ID="CheckBoxLocStore" runat="server" /><asp:Label ID="LabelLocStore" runat="server" Text="Pneumatiky jsou v příručním skladu"></asp:Label>
+    <asp:CheckBox ID="CheckBoxLocStore" runat="server" AutoPostBack="True" /><asp:Label ID="LabelLocStore" runat="server" Text="Pneumatiky jsou v příručním skladu"></asp:Label>
     <br />
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" DataKeyNames="EAN">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
@@ -46,7 +46,7 @@
         <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
     </asp:GridView>
     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="FindManufacturers" TypeName="KAS0110.Models.Database.OkPneuTireTable"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select" TypeName="KAS0110.Models.Database.OkPneuTireTable">
+    <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select" TypeName="KAS0110.Models.Database.OkPneuTireTable" OnSelecting="ObjectDataSource2_Selecting">
         <SelectParameters>
             <asp:ControlParameter ControlID="TextBoxSize" Name="strsize" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="DropDownList2" Name="season" PropertyName="SelectedValue" Type="Char" />

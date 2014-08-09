@@ -212,5 +212,20 @@ namespace KAS0110
                 CheckBox3.Enabled = true;
             }
         }
+
+        protected void ButtonAddTire1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=1");
+        }
+
+        protected void ButtonAddTire2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Employees/EditEmployee.aspx?GarageNumber=2");
+        }
+
+        protected void ButtonAddTire3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Employees/EditEmployee.aspx?GarageNumber=3");
+        }
     }
 }

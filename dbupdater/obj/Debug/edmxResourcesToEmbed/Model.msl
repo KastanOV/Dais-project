@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabasePneuservisModelStoreContainer" CdmEntityContainer="DatabasePneuservisEntities">
+    <EntitySetMapping Name="SuplierTiresOKpneus">
+      <EntityTypeMapping TypeName="DatabasePneuservisModel.SuplierTiresOKpneu">
+        <MappingFragment StoreEntitySet="SuplierTiresOKpneu">
+          <ScalarProperty Name="EAN" ColumnName="EAN" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="ExternalStore" ColumnName="ExternalStore" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="OnStore" ColumnName="OnStore" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="season" ColumnName="season" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
