@@ -58,5 +58,67 @@ namespace KAS0110
         }
 
         
+
+        protected void ButtonAddItems_Click(object sender, EventArgs e)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            string SelectedEan;
+            int TiresCount;
+            try
+            {
+                TiresCount = Int32.Parse(TiresItemsCount.Text);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Musíte napsat počet kusů pneumatik');", true);
+                return;
+            }
+            try
+            {
+                SelectedEan = GridView2.SelectedDataKey.Value.ToString();
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat pneumatiky');", true);
+                SelectedEan = null;
+                return;
+            }
+
+            var SelectedItem = (from i in db.SuplierTiresOKpneus
+                                where i.EAN == SelectedEan
+                                select i).First();
+            Item NewItem = new Item()
+            {
+                EAN = SelectedItem.EAN,
+                Name = SelectedItem.Name,
+                PricePerItem = (int)SelectedItem.Price,
+                COUNT = TiresCount,
+                Contract_id = Int32.Parse(ContractID.Value),
+                
+            };
+            int? result = 0;
+            db.InsertItemsFaktura(NewItem.EAN, NewItem.Name, NewItem.PricePerItem, NewItem.COUNT, NewItem.Contract_id, ref result);
+            if (result == 0)
+            {
+                Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
+            }
+            else 
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Něco je špatně zavolejte šéfa');", true);
+                Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
+            }
+        }
+
+        protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SqlDataSource5_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
+
+        }
+
+        
     }
 }

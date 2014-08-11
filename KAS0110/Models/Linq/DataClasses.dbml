@@ -11,6 +11,7 @@
       <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
+      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
       <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
@@ -49,4 +50,40 @@
       <Association Name="Contract_WorkItem" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SuplierTiresOKpneu" Member="SuplierTiresOKpneus">
+    <Type Name="SuplierTiresOKpneu">
+      <Column Name="EAN" Type="System.String" DbType="VarChar(14) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Manufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExternalStore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="OnStore" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="season" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Items" Member="Items">
+    <Type Name="Item">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EAN" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PricePerItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contract_Item" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.InsertItemsFaktura" Method="InsertItemsFaktura">
+    <Parameter Name="EAN" Parameter="eAN" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="PricePerItem" Parameter="pricePerItem" Type="System.Int32" DbType="Int" />
+    <Parameter Name="COUNT" Parameter="cOUNT" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Contract_id" Parameter="contract_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Info" Parameter="info" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
