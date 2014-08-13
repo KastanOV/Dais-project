@@ -1,20 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Pneuservis" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=TOPR-PC;Initial Catalog=Pneuservis;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PneuservisConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Contract" Member="Contracts">
-    <Type Name="Contract">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CustomerArrival" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="GarageNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="CustomerExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
-      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
-      <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
-    </Type>
-  </Table>
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FileDatabase" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\FileDatabase.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FileConnection" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Customers" Member="Customers">
     <Type Name="Customer">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -29,14 +14,43 @@
       <Column Name="ICO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="DIC" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
       <Association Name="Customer_Contract" Member="Contracts" ThisKey="id" OtherKey="Customers_id" Type="Contract" />
+      <Association Name="Customer_BazarTire" Member="BazarTires" ThisKey="id" OtherKey="Customers_id" Type="BazarTire" />
+      <Association Name="Customer_CarFleet" Member="CarFleets" ThisKey="id" OtherKey="Customers_id" Type="CarFleet" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="id" OtherKey="Customers_id" Type="Order" />
+      <Association Name="Customer_StoredWheelsDescription" Member="StoredWheelsDescriptions" ThisKey="id" OtherKey="Customers_id" Type="StoredWheelsDescription" />
     </Type>
   </Table>
-  <Table Name="dbo.WorkItemsReady" Member="WorkItemsReadies">
-    <Type Name="WorkItemsReady">
+  <Table Name="dbo.Contract" Member="Contracts">
+    <Type Name="Contract">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerArrival" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GarageNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
+      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
+      <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_Contract" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SuplierTiresOKpneu" Member="SuplierTiresOKpneus">
+    <Type Name="SuplierTiresOKpneu">
+      <Column Name="EAN" Type="System.String" DbType="VarChar(14) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Manufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExternalStore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="OnStore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="season" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="SuplierTiresOKpneu_OrderSuplierTiresOKPneu" Member="OrderSuplierTiresOKPneus" ThisKey="EAN" OtherKey="SuplierTiresOKpneu_EAN" Type="OrderSuplierTiresOKPneu" />
+      <Association Name="SuplierTiresOKpneu_PriceHistory" Member="PriceHistories" ThisKey="EAN" OtherKey="SuplierTiresOKpneu_EAN" Type="PriceHistory" />
     </Type>
   </Table>
   <Table Name="dbo.WorkItems" Member="WorkItems">
@@ -50,31 +64,124 @@
       <Association Name="Contract_WorkItem" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SuplierTiresOKpneu" Member="SuplierTiresOKpneus">
-    <Type Name="SuplierTiresOKpneu">
-      <Column Name="EAN" Type="System.String" DbType="VarChar(14) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Manufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ExternalStore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="code" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="OnStore" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="season" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
-      <Column Name="Photo" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Items" Member="Items">
     <Type Name="Item">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="EAN" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="PricePerItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Contract_Item" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BazarTires" Member="BazarTires">
+    <Type Name="BazarTire">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Manufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_BazarTire" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CarFleet" Member="CarFleets">
+    <Type Name="CarFleet">
+      <Column Name="CarIdentityNumber" Type="System.String" DbType="VarChar(7) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WinterWheelsSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SummerWheelSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CarManufacturer" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CarType" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="PreferedTyreManufacturer" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TreadDepthWinter" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="TreadDepthSummer" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_CarFleet" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmployeeAttendance" Member="EmployeeAttendances">
+    <Type Name="EmployeeAttendance">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Arrival" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Exit]" Member="Exit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Wage" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Paid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Employee_EmployeeAttendance" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="login" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Fname" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Lname" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Adress" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Experience" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="Employee_Contract" Member="Contracts" ThisKey="id" OtherKey="Employees_id" Type="Contract" />
+      <Association Name="Employee_EmployeeAttendance" Member="EmployeeAttendances" ThisKey="id" OtherKey="Employees_id" Type="EmployeeAttendance" />
+      <Association Name="Employee_Order" Member="Orders" ThisKey="id" OtherKey="Employees_id" Type="Order" />
+      <Association Name="Employee_StoredWheelsDescription" Member="StoredWheelsDescriptions" ThisKey="id" OtherKey="Employees_id_Store" Type="StoredWheelsDescription" />
+      <Association Name="Employee_StoredWheelsDescription1" Member="StoredWheelsDescriptions1" ThisKey="id" OtherKey="Employees_id_Unstore" Type="StoredWheelsDescription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DATETIME" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderSuplierTiresOKPneu" Member="OrderSuplierTiresOKPneus" ThisKey="Id" OtherKey="Order_Id" Type="OrderSuplierTiresOKPneu" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_Order" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderSuplierTiresOKPneu" Member="OrderSuplierTiresOKPneus">
+    <Type Name="OrderSuplierTiresOKPneu">
+      <Column Name="SuplierTiresOKpneu_EAN" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PricePerPiece" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderSuplierTiresOKPneu" Member="Order" ThisKey="Order_Id" OtherKey="Id" Type="Order" IsForeignKey="true" />
+      <Association Name="SuplierTiresOKpneu_OrderSuplierTiresOKPneu" Member="SuplierTiresOKpneu" ThisKey="SuplierTiresOKpneu_EAN" OtherKey="EAN" Type="SuplierTiresOKpneu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PriceHistory" Member="PriceHistories">
+    <Type Name="PriceHistory">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="oldPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="DATE" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SuplierTiresOKpneu_EAN" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Association Name="SuplierTiresOKpneu_PriceHistory" Member="SuplierTiresOKpneu" ThisKey="SuplierTiresOKpneu_EAN" OtherKey="EAN" Type="SuplierTiresOKpneu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoredWheelsDescription" Member="StoredWheelsDescriptions">
+    <Type Name="StoredWheelsDescription">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tiremanufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TireDecription" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StoreDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UnstoreDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id_Store" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id_Unstore" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Customer_StoredWheelsDescription" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_StoredWheelsDescription" Member="Employee" ThisKey="Employees_id_Store" OtherKey="id" Type="Employee" IsForeignKey="true" />
+      <Association Name="Employee_StoredWheelsDescription1" Member="Employee1" ThisKey="Employees_id_Unstore" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkItemsReady" Member="WorkItemsReadies">
+    <Type Name="WorkItemsReady">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.InsertItemsFaktura" Method="InsertItemsFaktura">

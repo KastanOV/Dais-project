@@ -1,35 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateBigContract.aspx.cs" Inherits="KAS0110.WebForm21" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Nová faktura</h1>
-    <asp:Table ID="Table1" runat="server">
+
+    <asp:Panel ID="Panel1" runat="server" Width="100%">
+        <asp:Table ID="Table1" runat="server" Width="100%">
         <asp:TableRow>
-            <asp:TableHeaderCell>
+            <asp:TableHeaderCell Width="30%">
                 <b>Renáta Kašturová</b><br />
                 Statovní 4 <br />
                 Ostrava <br />
             </asp:TableHeaderCell>
-            <asp:TableHeaderCell>
+            <asp:TableHeaderCell Width="30%">
                 IC:123456 <br />
                 DIC: CZ1235456 <br />
                 www.servisplzenska.cz
             </asp:TableHeaderCell>
-
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>
-                Vyřizuje
-                <br />
-                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="login" DataValueField="id" CssClass="form-control"></asp:DropDownList>
-            </asp:TableCell>
-            <asp:TableCell>
-                
-                
-            </asp:TableCell>
-
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>
+            <asp:TableCell Width="40%">
                 <asp:Label ID="CompanyName" runat="server" Text=""></asp:Label><br />
                 <asp:Label ID="CustName" runat="server" Text="Label"></asp:Label><br />
                 <asp:Label ID="Adress" runat="server" Text="Label"></asp:Label><br />
@@ -37,7 +23,18 @@
                 <asp:Label ID="DIC" runat="server" Text="Label"></asp:Label><br />
             </asp:TableCell>
         </asp:TableRow>
+        <asp:TableRow Width="30%">
+            <asp:TableCell>
+                Vyřizuje
+                <br />
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="login" DataValueField="id" CssClass="form-control"></asp:DropDownList>
+            </asp:TableCell>
+        </asp:TableRow >
+        
     </asp:Table>
+    </asp:Panel>
+<h1>Nová faktura</h1>
+    
 
     <h3>Cena prací</h3>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id" DataSourceID="SqlDataSourceWork" ForeColor="Black" GridLines="Horizontal" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">

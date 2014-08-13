@@ -180,36 +180,42 @@ namespace KAS0110
                 ButtonStani1.Text = "Příjezd vozidla";
                 TextBoxPlatba1.Enabled = false;
                 CheckBox1.Enabled = false;
+                ButtonPrint1.Enabled = false;
             }
             else
             {
                 ButtonStani1.Text = "Odjezd vozidla";
                 TextBoxPlatba1.Enabled = true;
                 CheckBox1.Enabled = true;
+                ButtonPrint1.Enabled = true;
             }
             if (st2)
             {
                 ButtonStani2.Text = "Příjezd vozidla";
                 TextBoxPlatba2.Enabled = false;
                 CheckBox2.Enabled = false;
+                ButtonPrint2.Enabled = false;
             }
             else
             {
                 ButtonStani2.Text = "Odjezd vozidla";
                 TextBoxPlatba2.Enabled = true;
                 CheckBox2.Enabled = true;
+                ButtonPrint2.Enabled = true;
             }
             if (st3)
             {
                 ButtonStani3.Text = "Příjezd vozidla";
                 TextBoxPlatba3.Enabled = false;
                 CheckBox3.Enabled = false;
+                ButtonPrint3.Enabled = false;
             }
             else
             {
                 ButtonStani3.Text = "Odjezd vozidla";
                 TextBoxPlatba3.Enabled = true;
                 CheckBox3.Enabled = true;
+                ButtonPrint3.Enabled = true;
             }
         }
 
@@ -220,12 +226,12 @@ namespace KAS0110
 
         protected void ButtonAddTire2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Employees/EditEmployee.aspx?GarageNumber=2");
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=2");
         }
 
         protected void ButtonAddTire3_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Employees/EditEmployee.aspx?GarageNumber=3");
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=3");
         }
     }
 }

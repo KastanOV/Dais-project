@@ -440,7 +440,6 @@ CREATE
     id           INTEGER NOT NULL IDENTITY NOT FOR REPLICATION ,
     EAN          VARCHAR (15) NOT NULL ,
     Name         VARCHAR (20) NOT NULL ,
-    Description  VARCHAR (200) ,
     PricePerItem INTEGER NOT NULL ,
     COUNT        INTEGER NOT NULL ,
     Contract_id  INTEGER NOT NULL ,
@@ -520,7 +519,7 @@ Alter table Customers
 add DIC Varchar(12)
 
 CREATE TABLE [dbo].[WorkItemsReady] (
-    [id]          INT            NOT NULL,
+    [id]          INT           IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
     [Name]        VARCHAR (20)  NOT NULL,
     [Description] VARCHAR (200) NOT NULL,
     [Price]       INT           NOT NULL,

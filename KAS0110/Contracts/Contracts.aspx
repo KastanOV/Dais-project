@@ -43,13 +43,13 @@
         </tr>
         <tr>
             <td>
-                <asp:Button ID="ButtonAddTire1" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire1_Click"/>
+                <asp:Button ID="ButtonPrint1" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire1_Click"/>
             </td>
             <td>
-                <asp:Button ID="ButtonAddTire2" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire2_Click"/>
+                <asp:Button ID="ButtonPrint2" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire2_Click"/>
             </td>
             <td>
-                <asp:Button ID="ButtonAddTire3" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire3_Click"/>
+                <asp:Button ID="ButtonPrint3" runat="server" Text="Tisk dokladu" CssClass="form-control" OnClick="ButtonAddTire3_Click"/>
             </td>
         </tr>
         <tr>

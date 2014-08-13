@@ -183,4 +183,67 @@ begin
 end
 go
 
+CREATE PROCEDURE [dbo].[InsertItemsFaktura] @EAN VARCHAR (15), @Name VARCHAR(20), @PricePerItem INT, @COUNT INT, @Contract_id INT, @Info int output
+AS
+	declare @v_Counter int, @v_CountOnInternalStore int
+	declare @v_id int
+BEGIN
+	--Najdi v tabulce ITEMS polozky ktere maji stejny EAN jako nove vlozena pneumatika
+	--a contract ID se shoduje s danou zakazkou na ktere se pracuje
+	-- pokud není dany EAN v seznamu entic bude treba vytvorit novou polozku jinak se pouze prepocitaji hodnoty
+	select @v_Counter = count(*) from Items where EAN = @EAN and @Contract_id = Contract_id
+	if @v_Counter > 0
+	begin
+		select @v_id = id from Items where EAN = @EAN 
+		-- Pokud pneumatiky nejsou na lokalním sklade nelze je prodat
+		select @v_CountOnInternalStore = OnStore from SuplierTiresOKpneu where EAN = @EAN
+		if @v_CountOnInternalStore < @COUNT
+		begin
+			set @Info = -1
+			return
+		end
+		else 
+		
+		begin try
+		begin transaction
+			update SuplierTiresOKpneu
+			set OnStore = OnStore - @COUNT
+			where EAN = @EAN
+
+			update Items
+			set "COUNT" = "COUNT" + @COUNT
+			where id = @v_id
+
+			commit
+		end try
+		begin catch
+			set @Info = -1
+			rollback
+		end catch
+	end		 
+	else
+	begin
+		select @v_CountOnInternalStore = OnStore from SuplierTiresOKpneu where EAN = @EAN
+		if @v_CountOnInternalStore < @COUNT
+		begin
+			set @Info = -1
+			return
+		end
+		begin try
+		begin transaction
+			INSERT INTO Items VALUES (@EAN, @Name, @PricePerItem, @COUNT, @Contract_id)
+
+			update SuplierTiresOKpneu
+			set OnStore = OnStore - @COUNT
+			where EAN = @EAN
+
+			commit
+		end try
+		begin catch
+			set @Info = -1
+			rollback 
+		end catch
+	end
+END
+
 
