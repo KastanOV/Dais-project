@@ -70,6 +70,8 @@
                                                 <li><a runat="server" href="~/Contracts/Contracts">Zakázky</a></li>
                                                 <li><a runat="server" href="~/Contracts/ContractsList">Evidence zakázek</a></li>
                                                 <li><a runat="server" href="~/Contracts/WorkItemsReady">Ceník služeb</a></li>
+                                                <li><a runat="server" href="~/Contracts/AddCunsumables.aspx">Ceník Spotřebního materialu</a></li>
+                                                
                                             </ul>
                                         </li>
                                         <li><a runat="server" href="~/">Sklady</a>

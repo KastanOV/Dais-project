@@ -18,7 +18,7 @@ namespace KAS0110.Models.Database
 
         public BazarTiresTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
         }
 
         public int Delete(BazarTires tir)

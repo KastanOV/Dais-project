@@ -17,7 +17,7 @@ namespace KAS0110.Models.Database
 
         public SchoolDatabase()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
             mConnection = new SqlConnection();
         }
 

@@ -21,7 +21,7 @@ namespace KAS0110.Models.Database
 
         public EmployeeTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
         }
 
         public EmployeeDetail GetWageDetail(int id)

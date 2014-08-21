@@ -76,13 +76,13 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.Label DIC;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// LabelEmployeeName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.Label LabelEmployeeName;
         
         /// <summary>
         /// GridView1 control.
@@ -166,58 +166,49 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.HiddenField ContractID;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// DropDownListCustomables control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCustomables;
         
         /// <summary>
-        /// GridView3 control.
+        /// ButtonAddMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView3;
+        protected global::System.Web.UI.WebControls.Button ButtonAddMaterial;
         
         /// <summary>
-        /// FindTires control.
+        /// TextBoxMaterialSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FindTires;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxMaterialSummary;
         
         /// <summary>
-        /// TiresItemsCount control.
+        /// ButtonDropMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TiresItemsCount;
+        protected global::System.Web.UI.WebControls.Button ButtonDropMaterial;
         
         /// <summary>
-        /// RegularExpressionValidator2 control.
+        /// ButtonAddCustomable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
-        
-        /// <summary>
-        /// ButtonAddItems control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonAddItems;
+        protected global::System.Web.UI.WebControls.Button ButtonAddCustomable;
         
         /// <summary>
         /// GridView2 control.
@@ -229,21 +220,21 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.GridView GridView2;
         
         /// <summary>
-        /// SqlDataSource4 control.
+        /// SqlDataSourceCunsumableGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCunsumableGridView;
         
         /// <summary>
-        /// SqlDataSource5 control.
+        /// SqlDataSourceCustomables control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource5;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCustomables;
     }
 }

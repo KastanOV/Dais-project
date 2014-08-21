@@ -10,12 +10,12 @@ namespace KAS0110
 {
     public partial class WebForm21 : System.Web.UI.Page
     {
-        int id;
+        int GarageNumber;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                id = Int32.Parse(Server.UrlDecode(Request.QueryString["GarageNumber"]));
+                GarageNumber = Int32.Parse(Server.UrlDecode(Request.QueryString["GarageNumber"]));
             }
             catch (ArgumentNullException)
             {
@@ -28,14 +28,16 @@ namespace KAS0110
             DataClassesDataContext db = new DataClassesDataContext();
             var data = (from i in db.Contracts
                        join j in db.Customers on i.Customers_id equals j.id
-                       where i.GarageNumber == id && i.CustomerExit == null
-                       select new { j.adress, j.city, j.CompanyName, j.DIC, j.fname, j.ICO, j.lname, j.postalCode, i.id }).First();
+                       join k in db.Employees on i.Employees_id equals k.id
+                       where i.GarageNumber == GarageNumber && i.CustomerExit == null
+                       select new { j.adress, j.city, j.CompanyName, j.DIC, j.fname, j.ICO, j.lname, j.postalCode, i.id, k.Fname, k.Lname, k.login }).First();
             CompanyName.Text = data.CompanyName;
             CustName.Text = data.lname + " " + data.fname;
             Adress.Text = data.adress + " " + data.city + " " + data.postalCode;
             IC.Text = data.ICO;
             DIC.Text = data.DIC;
             ContractID.Value = data.id.ToString();
+            LabelEmployeeName.Text = data.Fname + " " + data.Lname + " " + data.login;
         }
 
         protected void ButtonAddWork_Click(object sender, EventArgs e)
@@ -54,59 +56,34 @@ namespace KAS0110
             };
             db.WorkItems.InsertOnSubmit(items);
             db.SubmitChanges();
-            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + GarageNumber);
         }
-
-        
 
         protected void ButtonAddItems_Click(object sender, EventArgs e)
         {
             DataClassesDataContext db = new DataClassesDataContext();
-            string SelectedEan;
-            int TiresCount;
+            var item = (from i in db.ConsumablesReadies
+                        where i.id == Int32.Parse(DropDownListCustomables.SelectedValue)
+                        select i).First();
+            int ItemsCount = 0;
             try
             {
-                TiresCount = Int32.Parse(TiresItemsCount.Text);
+                ItemsCount = Int32.Parse(TextBoxMaterialSummary.Text);
             }
             catch
             {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Musíte napsat počet kusů pneumatik');", true);
-                return;
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
             }
-            try
+            Consumable con = new Consumable()
             {
-                SelectedEan = GridView2.SelectedDataKey.Value.ToString();
-            }
-            catch
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat pneumatiky');", true);
-                SelectedEan = null;
-                return;
-            }
-
-            var SelectedItem = (from i in db.SuplierTiresOKpneus
-                                where i.EAN == SelectedEan
-                                select i).First();
-            Item NewItem = new Item()
-            {
-                EAN = SelectedItem.EAN,
-                Name = SelectedItem.Name,
-                PricePerItem = (int)SelectedItem.Price,
-                COUNT = TiresCount,
                 Contract_id = Int32.Parse(ContractID.Value),
-                
+                Count = ItemsCount,
+                Name = item.Name,
+                Price = item.Price
             };
-            int? result = 0;
-            db.InsertItemsFaktura(NewItem.EAN, NewItem.Name, NewItem.PricePerItem, NewItem.COUNT, NewItem.Contract_id, ref result);
-            if (result == 0)
-            {
-                Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
-            }
-            else 
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Něco je špatně zavolejte šéfa');", true);
-                Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + id);
-            }
+            db.Consumables.InsertOnSubmit(con);
+            db.SubmitChanges();
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + GarageNumber);
         }
 
         protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,6 +94,36 @@ namespace KAS0110
         protected void SqlDataSource5_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
         {
 
+        }
+
+        protected void ButtonAddMaterial_Click(object sender, EventArgs e)
+        {
+            int tmp = 0;
+            try
+            {
+                tmp = Int32.Parse(TextBoxMaterialSummary.Text);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
+                return;
+            }
+            TextBoxMaterialSummary.Text = (tmp + 1).ToString();
+        }
+
+        protected void ButtonDropMaterial_Click(object sender, EventArgs e)
+        {
+            int tmp = 0;
+            try
+            {
+                tmp = Int32.Parse(TextBoxMaterialSummary.Text);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
+                return;
+            }
+            TextBoxMaterialSummary.Text = (tmp - 1).ToString();
         }
 
         

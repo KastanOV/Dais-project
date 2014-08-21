@@ -528,6 +528,54 @@ CREATE TABLE [dbo].[WorkItemsReady] (
 ALTER TABLE [dbo].[WorkItemsReady] 
     ADD CONSTRAINT WorkItemsReady_PK PRIMARY KEY CLUSTERED (id)
 
+Alter table PriceHistory
+add OnExternalStore int
+CREATE TABLE [dbo].[ConsumablesReady] (
+    [id]          INT           IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name]        VARCHAR (20)  NOT NULL,
+    [Price]       INT           NOT NULL,
+    
+);
+
+ALTER TABLE [dbo].[ConsumablesReady] 
+    ADD CONSTRAINT ConsumablesReady_PK PRIMARY KEY CLUSTERED (id)
+
+
+CREATE
+  TABLE Consumables
+  (
+    [id]          INT           IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name]        VARCHAR (20)  NOT NULL,
+    [Price]       INT           NOT NULL,
+	[Count]       INT           NOT NULL,
+	Contract_id INTEGER NOT NULL ,
+    CONSTRAINT Consumables_PK PRIMARY KEY CLUSTERED (id)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+GO
+
+ALTER TABLE Consumables
+ADD CONSTRAINT Consumables_Contract_FK FOREIGN KEY
+(
+Contract_id
+)
+REFERENCES Contract
+(
+id
+)
+ON
+DELETE
+  NO ACTION ON
+UPDATE NO ACTION
+GO
+
+
 -- Oracle SQL Developer Data Modeler Summary Report: 
 -- 
 -- CREATE TABLE                            11

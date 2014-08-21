@@ -24,7 +24,7 @@ namespace KAS0110.Models.Database
 
         public OkPneuTireTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
         }
 
         public int Insert(OkPneuTire tire)

@@ -193,6 +193,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Contracts\WorkItemsReady.aspx" />
+    <Content Include="Contracts\AddCunsumables.aspx" />
     <None Include="Properties\PublishProfiles\Kastan.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -488,6 +489,13 @@
     </Compile>
     <Compile Include="Contracts\WorkItemsReady.aspx.designer.cs">
       <DependentUpon>WorkItemsReady.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\AddCunsumables.aspx.cs">
+      <DependentUpon>AddCunsumables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contracts\AddCunsumables.aspx.designer.cs">
+      <DependentUpon>AddCunsumables.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

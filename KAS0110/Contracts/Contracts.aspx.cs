@@ -13,7 +13,7 @@ namespace KAS0110
         bool st1, st2, st3;
         protected void Page_Load(object sender, EventArgs e)
         {
-            UI();
+            LoadUI();
         }
 
         protected void ButtonStani1_Click(object sender, EventArgs e)
@@ -47,8 +47,6 @@ namespace KAS0110
                 {
                     try
                     {
-                        con.Payment = Int32.Parse(TextBoxPlatba1.Text);
-                        con.VAT = CheckBox1.Checked;
                         conTable.Exit(con);
                         Response.Redirect("~/Contracts/Contracts");
                     }
@@ -97,8 +95,7 @@ namespace KAS0110
                 {
                     try
                     {
-                        con.Payment = Int32.Parse(TextBoxPlatba2.Text);
-                        con.VAT = CheckBox2.Checked;
+                        
                         conTable.Exit(con);
                         Response.Redirect("~/Contracts/Contracts");
                     }
@@ -146,8 +143,7 @@ namespace KAS0110
                 {
                     try
                     {
-                        con.Payment = Int32.Parse(TextBoxPlatba3.Text);
-                        con.VAT = CheckBox3.Checked;
+                        
                         conTable.Exit(con);
                         Response.Redirect("~/Contracts/Contracts");
                     }
@@ -168,7 +164,7 @@ namespace KAS0110
         {
             Response.Redirect("~/Customers/AddCustomer");
         }
-        private void UI()
+        private void LoadUI()
         {
             ContractTable ct = new ContractTable();
             st1 = ct.IsGarageEmpty(1);
@@ -178,43 +174,37 @@ namespace KAS0110
             if (st1)
             {
                 ButtonStani1.Text = "Příjezd vozidla";
-                TextBoxPlatba1.Enabled = false;
-                CheckBox1.Enabled = false;
+                ButtonStani1.Enabled = true;
                 ButtonPrint1.Enabled = false;
             }
             else
             {
-                ButtonStani1.Text = "Odjezd vozidla";
-                TextBoxPlatba1.Enabled = true;
-                CheckBox1.Enabled = true;
+                ButtonStani1.Text = "Příjezd vozidla";
+                ButtonStani1.Enabled = false;
                 ButtonPrint1.Enabled = true;
             }
             if (st2)
             {
                 ButtonStani2.Text = "Příjezd vozidla";
-                TextBoxPlatba2.Enabled = false;
-                CheckBox2.Enabled = false;
+                ButtonStani2.Enabled = true;
                 ButtonPrint2.Enabled = false;
             }
             else
             {
-                ButtonStani2.Text = "Odjezd vozidla";
-                TextBoxPlatba2.Enabled = true;
-                CheckBox2.Enabled = true;
+                ButtonStani2.Text = "Příjezd vozidla";
+                ButtonStani2.Enabled = false;
                 ButtonPrint2.Enabled = true;
             }
             if (st3)
             {
                 ButtonStani3.Text = "Příjezd vozidla";
-                TextBoxPlatba3.Enabled = false;
-                CheckBox3.Enabled = false;
+                ButtonStani3.Enabled = true;
                 ButtonPrint3.Enabled = false;
             }
             else
             {
-                ButtonStani3.Text = "Odjezd vozidla";
-                TextBoxPlatba3.Enabled = true;
-                CheckBox3.Enabled = true;
+                ButtonStani3.Text = "Příjezd vozidla";
+                ButtonStani3.Enabled = false;
                 ButtonPrint3.Enabled = true;
             }
         }

@@ -19,7 +19,7 @@ namespace KAS0110.Models.Database
 
         public StoredWheelsTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
         }
 
         public int Insert(StoredWheels st)

@@ -176,12 +176,12 @@ create trigger WriteToPriceHistory on SuplierTiresOKpneu after update
 as
 	declare @v_oldPrice money;
 	declare @v_EAN varchar(14);
+	declare @v_OnExternalStore int;
 begin
-	select @v_oldPrice = price, @v_EAN = EAN from DELETED;
+	select @v_oldPrice = price, @v_EAN = EAN, @v_OnExternalStore = ExternalStore from DELETED;
 
-	insert into Pricehistory values ( @v_oldPrice, getdate(),@v_EAN); 
+	insert into Pricehistory values ( @v_oldPrice, getdate(),@v_EAN, @v_OnExternalStore); 
 end
-go
 
 CREATE PROCEDURE [dbo].[InsertItemsFaktura] @EAN VARCHAR (15), @Name VARCHAR(20), @PricePerItem INT, @COUNT INT, @Contract_id INT, @Info int output
 AS

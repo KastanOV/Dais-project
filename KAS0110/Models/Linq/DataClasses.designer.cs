@@ -22,7 +22,7 @@ namespace KAS0110.Models.Linq
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="FileDatabase")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Pneuservis")]
 	public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -69,10 +69,16 @@ namespace KAS0110.Models.Linq
     partial void InsertWorkItemsReady(WorkItemsReady instance);
     partial void UpdateWorkItemsReady(WorkItemsReady instance);
     partial void DeleteWorkItemsReady(WorkItemsReady instance);
+    partial void InsertConsumablesReady(ConsumablesReady instance);
+    partial void UpdateConsumablesReady(ConsumablesReady instance);
+    partial void DeleteConsumablesReady(ConsumablesReady instance);
+    partial void InsertConsumable(Consumable instance);
+    partial void UpdateConsumable(Consumable instance);
+    partial void DeleteConsumable(Consumable instance);
     #endregion
 		
 		public DataClassesDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -210,6 +216,22 @@ namespace KAS0110.Models.Linq
 			get
 			{
 				return this.GetTable<WorkItemsReady>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ConsumablesReady> ConsumablesReadies
+		{
+			get
+			{
+				return this.GetTable<ConsumablesReady>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Consumable> Consumables
+		{
+			get
+			{
+				return this.GetTable<Consumable>();
 			}
 		}
 		
@@ -690,6 +712,8 @@ namespace KAS0110.Models.Linq
 		
 		private EntitySet<Item> _Items;
 		
+		private EntitySet<Consumable> _Consumables;
+		
 		private EntityRef<Customer> _Customer;
 		
 		private EntityRef<Employee> _Employee;
@@ -720,6 +744,7 @@ namespace KAS0110.Models.Linq
 		{
 			this._WorkItems = new EntitySet<WorkItem>(new Action<WorkItem>(this.attach_WorkItems), new Action<WorkItem>(this.detach_WorkItems));
 			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			this._Consumables = new EntitySet<Consumable>(new Action<Consumable>(this.attach_Consumables), new Action<Consumable>(this.detach_Consumables));
 			this._Customer = default(EntityRef<Customer>);
 			this._Employee = default(EntityRef<Employee>);
 			OnCreated();
@@ -919,6 +944,19 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Consumable", Storage="_Consumables", ThisKey="id", OtherKey="Contract_id")]
+		public EntitySet<Consumable> Consumables
+		{
+			get
+			{
+				return this._Consumables;
+			}
+			set
+			{
+				this._Consumables.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Contract", Storage="_Customer", ThisKey="Customers_id", OtherKey="id", IsForeignKey=true)]
 		public Customer Customer
 		{
@@ -1026,6 +1064,18 @@ namespace KAS0110.Models.Linq
 		}
 		
 		private void detach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = null;
+		}
+		
+		private void attach_Consumables(Consumable entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = this;
+		}
+		
+		private void detach_Consumables(Consumable entity)
 		{
 			this.SendPropertyChanging();
 			entity.Contract = null;
@@ -3925,6 +3975,315 @@ namespace KAS0110.Models.Linq
 					this._Price = value;
 					this.SendPropertyChanged("Price");
 					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ConsumablesReady")]
+	public partial class ConsumablesReady : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _Name;
+		
+		private int _Price;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPriceChanging(int value);
+    partial void OnPriceChanged();
+    #endregion
+		
+		public ConsumablesReady()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Int NOT NULL")]
+		public int Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Consumables")]
+	public partial class Consumable : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _Name;
+		
+		private int _Price;
+		
+		private int _Count;
+		
+		private int _Contract_id;
+		
+		private EntityRef<Contract> _Contract;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPriceChanging(int value);
+    partial void OnPriceChanged();
+    partial void OnCountChanging(int value);
+    partial void OnCountChanged();
+    partial void OnContract_idChanging(int value);
+    partial void OnContract_idChanged();
+    #endregion
+		
+		public Consumable()
+		{
+			this._Contract = default(EntityRef<Contract>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Int NOT NULL")]
+		public int Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int NOT NULL")]
+		public int Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this.OnCountChanging(value);
+					this.SendPropertyChanging();
+					this._Count = value;
+					this.SendPropertyChanged("Count");
+					this.OnCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contract_id", DbType="Int NOT NULL")]
+		public int Contract_id
+		{
+			get
+			{
+				return this._Contract_id;
+			}
+			set
+			{
+				if ((this._Contract_id != value))
+				{
+					if (this._Contract.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnContract_idChanging(value);
+					this.SendPropertyChanging();
+					this._Contract_id = value;
+					this.SendPropertyChanged("Contract_id");
+					this.OnContract_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Consumable", Storage="_Contract", ThisKey="Contract_id", OtherKey="id", IsForeignKey=true)]
+		public Contract Contract
+		{
+			get
+			{
+				return this._Contract.Entity;
+			}
+			set
+			{
+				Contract previousValue = this._Contract.Entity;
+				if (((previousValue != value) 
+							|| (this._Contract.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Contract.Entity = null;
+						previousValue.Consumables.Remove(this);
+					}
+					this._Contract.Entity = value;
+					if ((value != null))
+					{
+						value.Consumables.Add(this);
+						this._Contract_id = value.id;
+					}
+					else
+					{
+						this._Contract_id = default(int);
+					}
+					this.SendPropertyChanged("Contract");
 				}
 			}
 		}

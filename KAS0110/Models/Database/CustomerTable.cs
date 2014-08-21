@@ -20,7 +20,7 @@ namespace KAS0110.Models.Database
 
         public CustomerTable()
         {
-            this.connectionString = WebConfigurationManager.ConnectionStrings["FileConnection"].ConnectionString;
+            this.connectionString = WebConfigurationManager.ConnectionStrings["PneuservisConnectionString"].ConnectionString;
         }
 
         //public int Delete(int id)

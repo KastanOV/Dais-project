@@ -32,14 +32,11 @@
         
         <tr>
             <td>
-                <asp:TextBox ID="TextBoxPlatba1" runat="server" ToolTip="Platba za služby" CssClass="form-control"></asp:TextBox>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:TextBox ID="TextBoxPlatba2" runat="server" ToolTip="Platba za služby" CssClass="form-control"></asp:TextBox>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:TextBox ID="TextBoxPlatba3" runat="server" ToolTip="Platba za služby" CssClass="form-control"></asp:TextBox>
-            </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -54,14 +51,11 @@
         </tr>
         <tr>
             <td>
-                <asp:CheckBox ID="CheckBox1" runat="server" Text="platce DPH" CssClass="form-control"/>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:CheckBox ID="CheckBox2" runat="server" Text="platce DPH" CssClass="form-control"/>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:CheckBox ID="CheckBox3" runat="server" Text="platce DPH" CssClass="form-control"/>
-            </td>
+                &nbsp;</td>
         </tr>
     </table>
     <p >Vyhledávání klientů<asp:TextBox ID="TextBoxSearch" runat="server" CssClass="form-control" ToolTip="Vyhledávání klientů"></asp:TextBox> <asp:Button ID="ButtonAddCustomer" runat="server" Text="Přídat klienta" OnClick="ButtonAddCustomer_Click" CssClass="form-control"/></p>
