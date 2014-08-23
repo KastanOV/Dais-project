@@ -438,8 +438,8 @@ CREATE
   TABLE Items
   (
     id           INTEGER NOT NULL IDENTITY NOT FOR REPLICATION ,
-    EAN          VARCHAR (15) NOT NULL ,
-    Name         VARCHAR (20) NOT NULL ,
+    EAN          VARCHAR (14) NOT NULL ,
+    Name         VARCHAR (50) NOT NULL ,
     PricePerItem INTEGER NOT NULL ,
     COUNT        INTEGER NOT NULL ,
     Contract_id  INTEGER NOT NULL ,
@@ -575,6 +575,15 @@ DELETE
 UPDATE NO ACTION
 GO
 
+alter table Contract
+add MethodOfPayment char(1) null
+
+update Contract
+set MethodOfPayment = 'H'
+where MethodOfPayment is null
+
+alter table Contract
+alter column MethodOfPayment char(1) not null
 
 -- Oracle SQL Developer Data Modeler Summary Report: 
 -- 

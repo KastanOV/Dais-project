@@ -194,6 +194,7 @@
     </Content>
     <Content Include="Contracts\WorkItemsReady.aspx" />
     <Content Include="Contracts\AddCunsumables.aspx" />
+    <Content Include="Contracts\PrintBill.aspx" />
     <None Include="Properties\PublishProfiles\Kastan.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -282,6 +283,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Contracts\InvoiceItemsTable.cs" />
+    <Compile Include="Contracts\ItemOfInvoice.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -496,6 +499,13 @@
     </Compile>
     <Compile Include="Contracts\AddCunsumables.aspx.designer.cs">
       <DependentUpon>AddCunsumables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts\PrintBill.aspx.cs">
+      <DependentUpon>PrintBill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contracts\PrintBill.aspx.designer.cs">
+      <DependentUpon>PrintBill.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

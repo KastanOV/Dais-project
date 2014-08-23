@@ -126,6 +126,88 @@ namespace KAS0110
             TextBoxMaterialSummary.Text = (tmp - 1).ToString();
         }
 
+        protected void ButtonSubmitTires_Click(object sender, EventArgs e)
+        {
+            string tmp;
+            try
+            {
+                tmp = GridView3.SelectedDataKey.Value.ToString();
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva nejdříve musíš vybrat gumy');", true);
+                return;
+            }
+            
+            DataClassesDataContext db = new DataClassesDataContext();
+            SuplierTiresOKpneu tire = new SuplierTiresOKpneu();
+            try 
+            {
+                tire = (from i in db.SuplierTiresOKpneus
+                                           where i.EAN == tmp
+                                           select i).First();
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Vloudila se mi tady chybka sorry');", true);
+                return;
+            }
+            Item item = new Item() 
+            { 
+                Contract_id = Int32.Parse(ContractID.Value),
+                COUNT = Int32.Parse(TextBoxTiresCount.Text),
+                EAN = tire.EAN,
+                Name = tire.Name,
+                PricePerItem = (int)tire.Price
+            };
+            db.Items.InsertOnSubmit(item);
+            db.SubmitChanges();
+            Response.Redirect("~/Contracts/CreateBigContract.aspx?GarageNumber=" + GarageNumber);
+        }
+
+        protected void ButtonIncrementTiresCount_Click(object sender, EventArgs e)
+        {
+            int tmp = 0;
+            try
+            {
+                tmp = Int32.Parse(TextBoxTiresCount.Text);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
+                return;
+            }
+            TextBoxTiresCount.Text = (tmp + 1).ToString();
+        }
+
+        protected void ButtonDecrementTiresCount_Click(object sender, EventArgs e)
+        {
+            int tmp = 0;
+            try
+            {
+                tmp = Int32.Parse(TextBoxTiresCount.Text);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
+                return;
+            }
+            TextBoxTiresCount.Text = (tmp - 1).ToString();
+        }
+        protected void TireSearchChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                TireSize.Value = TextBoxSearchTires.Text;
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Kurva přestaňte mi tady psát kokotiny');", true);
+                TireSize.Value = "0";
+                return;
+            }
+        }
+        
         
     }
 }

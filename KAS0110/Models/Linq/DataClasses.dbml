@@ -31,8 +31,8 @@
       <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
-      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
       <Association Name="Contract_Consumable" Member="Consumables" ThisKey="id" OtherKey="Contract_id" Type="Consumable" />
+      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
       <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
       <Association Name="Employee_Contract" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
     </Type>
@@ -63,17 +63,6 @@
       <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Contract_WorkItem" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Items" Member="Items">
-    <Type Name="Item">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EAN" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="PricePerItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Contract_Item" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BazarTires" Member="BazarTires">
@@ -200,6 +189,17 @@
       <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Contract_Consumable" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Items" Member="Items">
+    <Type Name="Item">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EAN" Type="System.String" DbType="VarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PricePerItem" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contract_Item" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.InsertItemsFaktura" Method="InsertItemsFaktura">
