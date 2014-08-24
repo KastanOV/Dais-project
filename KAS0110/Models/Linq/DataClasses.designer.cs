@@ -33,9 +33,6 @@ namespace KAS0110.Models.Linq
     partial void InsertCustomer(Customer instance);
     partial void UpdateCustomer(Customer instance);
     partial void DeleteCustomer(Customer instance);
-    partial void InsertContract(Contract instance);
-    partial void UpdateContract(Contract instance);
-    partial void DeleteContract(Contract instance);
     partial void InsertSuplierTiresOKpneu(SuplierTiresOKpneu instance);
     partial void UpdateSuplierTiresOKpneu(SuplierTiresOKpneu instance);
     partial void DeleteSuplierTiresOKpneu(SuplierTiresOKpneu instance);
@@ -75,6 +72,9 @@ namespace KAS0110.Models.Linq
     partial void InsertItem(Item instance);
     partial void UpdateItem(Item instance);
     partial void DeleteItem(Item instance);
+    partial void InsertContract(Contract instance);
+    partial void UpdateContract(Contract instance);
+    partial void DeleteContract(Contract instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -112,14 +112,6 @@ namespace KAS0110.Models.Linq
 			get
 			{
 				return this.GetTable<Customer>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Contract> Contracts
-		{
-			get
-			{
-				return this.GetTable<Contract>();
 			}
 		}
 		
@@ -235,6 +227,14 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		public System.Data.Linq.Table<Contract> Contracts
+		{
+			get
+			{
+				return this.GetTable<Contract>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertItemsFaktura")]
 		public int InsertItemsFaktura([global::System.Data.Linq.Mapping.ParameterAttribute(Name="EAN", DbType="VarChar(15)")] string eAN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(20)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PricePerItem", DbType="Int")] System.Nullable<int> pricePerItem, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="COUNT", DbType="Int")] System.Nullable<int> cOUNT, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contract_id", DbType="Int")] System.Nullable<int> contract_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Info", DbType="Int")] ref System.Nullable<int> info)
 		{
@@ -272,8 +272,6 @@ namespace KAS0110.Models.Linq
 		
 		private string _DIC;
 		
-		private EntitySet<Contract> _Contracts;
-		
 		private EntitySet<BazarTire> _BazarTires;
 		
 		private EntitySet<CarFleet> _CarFleets;
@@ -281,6 +279,8 @@ namespace KAS0110.Models.Linq
 		private EntitySet<Order> _Orders;
 		
 		private EntitySet<StoredWheelsDescription> _StoredWheelsDescriptions;
+		
+		private EntitySet<Contract> _Contracts;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -312,11 +312,11 @@ namespace KAS0110.Models.Linq
 		
 		public Customer()
 		{
-			this._Contracts = new EntitySet<Contract>(new Action<Contract>(this.attach_Contracts), new Action<Contract>(this.detach_Contracts));
 			this._BazarTires = new EntitySet<BazarTire>(new Action<BazarTire>(this.attach_BazarTires), new Action<BazarTire>(this.detach_BazarTires));
 			this._CarFleets = new EntitySet<CarFleet>(new Action<CarFleet>(this.attach_CarFleets), new Action<CarFleet>(this.detach_CarFleets));
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 			this._StoredWheelsDescriptions = new EntitySet<StoredWheelsDescription>(new Action<StoredWheelsDescription>(this.attach_StoredWheelsDescriptions), new Action<StoredWheelsDescription>(this.detach_StoredWheelsDescriptions));
+			this._Contracts = new EntitySet<Contract>(new Action<Contract>(this.attach_Contracts), new Action<Contract>(this.detach_Contracts));
 			OnCreated();
 		}
 		
@@ -540,19 +540,6 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Contract", Storage="_Contracts", ThisKey="id", OtherKey="Customers_id")]
-		public EntitySet<Contract> Contracts
-		{
-			get
-			{
-				return this._Contracts;
-			}
-			set
-			{
-				this._Contracts.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_BazarTire", Storage="_BazarTires", ThisKey="id", OtherKey="Customers_id")]
 		public EntitySet<BazarTire> BazarTires
 		{
@@ -605,6 +592,19 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Contract", Storage="_Contracts", ThisKey="id", OtherKey="Customers_id")]
+		public EntitySet<Contract> Contracts
+		{
+			get
+			{
+				return this._Contracts;
+			}
+			set
+			{
+				this._Contracts.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -623,18 +623,6 @@ namespace KAS0110.Models.Linq
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Contracts(Contract entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = this;
-		}
-		
-		private void detach_Contracts(Contract entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = null;
 		}
 		
 		private void attach_BazarTires(BazarTire entity)
@@ -684,401 +672,17 @@ namespace KAS0110.Models.Linq
 			this.SendPropertyChanging();
 			entity.Customer = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contract")]
-	public partial class Contract : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _Customers_id;
-		
-		private int _Employees_id;
-		
-		private System.DateTime _CustomerArrival;
-		
-		private short _GarageNumber;
-		
-		private System.Nullable<System.DateTime> _CustomerExit;
-		
-		private System.Nullable<int> _Payment;
-		
-		private System.Nullable<bool> _VAT;
-		
-		private EntitySet<WorkItem> _WorkItems;
-		
-		private EntitySet<Consumable> _Consumables;
-		
-		private EntitySet<Item> _Items;
-		
-		private EntityRef<Customer> _Customer;
-		
-		private EntityRef<Employee> _Employee;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnCustomers_idChanging(int value);
-    partial void OnCustomers_idChanged();
-    partial void OnEmployees_idChanging(int value);
-    partial void OnEmployees_idChanged();
-    partial void OnCustomerArrivalChanging(System.DateTime value);
-    partial void OnCustomerArrivalChanged();
-    partial void OnGarageNumberChanging(short value);
-    partial void OnGarageNumberChanged();
-    partial void OnCustomerExitChanging(System.Nullable<System.DateTime> value);
-    partial void OnCustomerExitChanged();
-    partial void OnPaymentChanging(System.Nullable<int> value);
-    partial void OnPaymentChanged();
-    partial void OnVATChanging(System.Nullable<bool> value);
-    partial void OnVATChanged();
-    #endregion
-		
-		public Contract()
-		{
-			this._WorkItems = new EntitySet<WorkItem>(new Action<WorkItem>(this.attach_WorkItems), new Action<WorkItem>(this.detach_WorkItems));
-			this._Consumables = new EntitySet<Consumable>(new Action<Consumable>(this.attach_Consumables), new Action<Consumable>(this.detach_Consumables));
-			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
-			this._Customer = default(EntityRef<Customer>);
-			this._Employee = default(EntityRef<Employee>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customers_id", DbType="Int NOT NULL")]
-		public int Customers_id
-		{
-			get
-			{
-				return this._Customers_id;
-			}
-			set
-			{
-				if ((this._Customers_id != value))
-				{
-					if (this._Customer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCustomers_idChanging(value);
-					this.SendPropertyChanging();
-					this._Customers_id = value;
-					this.SendPropertyChanged("Customers_id");
-					this.OnCustomers_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Employees_id", DbType="Int NOT NULL")]
-		public int Employees_id
-		{
-			get
-			{
-				return this._Employees_id;
-			}
-			set
-			{
-				if ((this._Employees_id != value))
-				{
-					if (this._Employee.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEmployees_idChanging(value);
-					this.SendPropertyChanging();
-					this._Employees_id = value;
-					this.SendPropertyChanged("Employees_id");
-					this.OnEmployees_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerArrival", DbType="DateTime NOT NULL")]
-		public System.DateTime CustomerArrival
-		{
-			get
-			{
-				return this._CustomerArrival;
-			}
-			set
-			{
-				if ((this._CustomerArrival != value))
-				{
-					this.OnCustomerArrivalChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerArrival = value;
-					this.SendPropertyChanged("CustomerArrival");
-					this.OnCustomerArrivalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GarageNumber", DbType="SmallInt NOT NULL")]
-		public short GarageNumber
-		{
-			get
-			{
-				return this._GarageNumber;
-			}
-			set
-			{
-				if ((this._GarageNumber != value))
-				{
-					this.OnGarageNumberChanging(value);
-					this.SendPropertyChanging();
-					this._GarageNumber = value;
-					this.SendPropertyChanged("GarageNumber");
-					this.OnGarageNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerExit", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CustomerExit
-		{
-			get
-			{
-				return this._CustomerExit;
-			}
-			set
-			{
-				if ((this._CustomerExit != value))
-				{
-					this.OnCustomerExitChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerExit = value;
-					this.SendPropertyChanged("CustomerExit");
-					this.OnCustomerExitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Payment", DbType="Int")]
-		public System.Nullable<int> Payment
-		{
-			get
-			{
-				return this._Payment;
-			}
-			set
-			{
-				if ((this._Payment != value))
-				{
-					this.OnPaymentChanging(value);
-					this.SendPropertyChanging();
-					this._Payment = value;
-					this.SendPropertyChanged("Payment");
-					this.OnPaymentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VAT", DbType="Bit")]
-		public System.Nullable<bool> VAT
-		{
-			get
-			{
-				return this._VAT;
-			}
-			set
-			{
-				if ((this._VAT != value))
-				{
-					this.OnVATChanging(value);
-					this.SendPropertyChanging();
-					this._VAT = value;
-					this.SendPropertyChanged("VAT");
-					this.OnVATChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_WorkItem", Storage="_WorkItems", ThisKey="id", OtherKey="Contract_id")]
-		public EntitySet<WorkItem> WorkItems
-		{
-			get
-			{
-				return this._WorkItems;
-			}
-			set
-			{
-				this._WorkItems.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Consumable", Storage="_Consumables", ThisKey="id", OtherKey="Contract_id")]
-		public EntitySet<Consumable> Consumables
-		{
-			get
-			{
-				return this._Consumables;
-			}
-			set
-			{
-				this._Consumables.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Item", Storage="_Items", ThisKey="id", OtherKey="Contract_id")]
-		public EntitySet<Item> Items
-		{
-			get
-			{
-				return this._Items;
-			}
-			set
-			{
-				this._Items.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Contract", Storage="_Customer", ThisKey="Customers_id", OtherKey="id", IsForeignKey=true)]
-		public Customer Customer
-		{
-			get
-			{
-				return this._Customer.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer.Entity = null;
-						previousValue.Contracts.Remove(this);
-					}
-					this._Customer.Entity = value;
-					if ((value != null))
-					{
-						value.Contracts.Add(this);
-						this._Customers_id = value.id;
-					}
-					else
-					{
-						this._Customers_id = default(int);
-					}
-					this.SendPropertyChanged("Customer");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Contract", Storage="_Employee", ThisKey="Employees_id", OtherKey="id", IsForeignKey=true)]
-		public Employee Employee
-		{
-			get
-			{
-				return this._Employee.Entity;
-			}
-			set
-			{
-				Employee previousValue = this._Employee.Entity;
-				if (((previousValue != value) 
-							|| (this._Employee.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employee.Entity = null;
-						previousValue.Contracts.Remove(this);
-					}
-					this._Employee.Entity = value;
-					if ((value != null))
-					{
-						value.Contracts.Add(this);
-						this._Employees_id = value.id;
-					}
-					else
-					{
-						this._Employees_id = default(int);
-					}
-					this.SendPropertyChanged("Employee");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_WorkItems(WorkItem entity)
+		private void attach_Contracts(Contract entity)
 		{
 			this.SendPropertyChanging();
-			entity.Contract = this;
+			entity.Customer = this;
 		}
 		
-		private void detach_WorkItems(WorkItem entity)
+		private void detach_Contracts(Contract entity)
 		{
 			this.SendPropertyChanging();
-			entity.Contract = null;
-		}
-		
-		private void attach_Consumables(Consumable entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = this;
-		}
-		
-		private void detach_Consumables(Consumable entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = null;
-		}
-		
-		private void attach_Items(Item entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = this;
-		}
-		
-		private void detach_Items(Item entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = null;
+			entity.Customer = null;
 		}
 	}
 	
@@ -2400,8 +2004,6 @@ namespace KAS0110.Models.Linq
 		
 		private byte _Experience;
 		
-		private EntitySet<Contract> _Contracts;
-		
 		private EntitySet<EmployeeAttendance> _EmployeeAttendances;
 		
 		private EntitySet<Order> _Orders;
@@ -2409,6 +2011,8 @@ namespace KAS0110.Models.Linq
 		private EntitySet<StoredWheelsDescription> _StoredWheelsDescriptions;
 		
 		private EntitySet<StoredWheelsDescription> _StoredWheelsDescriptions1;
+		
+		private EntitySet<Contract> _Contracts;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2436,11 +2040,11 @@ namespace KAS0110.Models.Linq
 		
 		public Employee()
 		{
-			this._Contracts = new EntitySet<Contract>(new Action<Contract>(this.attach_Contracts), new Action<Contract>(this.detach_Contracts));
 			this._EmployeeAttendances = new EntitySet<EmployeeAttendance>(new Action<EmployeeAttendance>(this.attach_EmployeeAttendances), new Action<EmployeeAttendance>(this.detach_EmployeeAttendances));
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 			this._StoredWheelsDescriptions = new EntitySet<StoredWheelsDescription>(new Action<StoredWheelsDescription>(this.attach_StoredWheelsDescriptions), new Action<StoredWheelsDescription>(this.detach_StoredWheelsDescriptions));
 			this._StoredWheelsDescriptions1 = new EntitySet<StoredWheelsDescription>(new Action<StoredWheelsDescription>(this.attach_StoredWheelsDescriptions1), new Action<StoredWheelsDescription>(this.detach_StoredWheelsDescriptions1));
+			this._Contracts = new EntitySet<Contract>(new Action<Contract>(this.attach_Contracts), new Action<Contract>(this.detach_Contracts));
 			OnCreated();
 		}
 		
@@ -2624,19 +2228,6 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Contract", Storage="_Contracts", ThisKey="id", OtherKey="Employees_id")]
-		public EntitySet<Contract> Contracts
-		{
-			get
-			{
-				return this._Contracts;
-			}
-			set
-			{
-				this._Contracts.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_EmployeeAttendance", Storage="_EmployeeAttendances", ThisKey="id", OtherKey="Employees_id")]
 		public EntitySet<EmployeeAttendance> EmployeeAttendances
 		{
@@ -2689,6 +2280,19 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Contract", Storage="_Contracts", ThisKey="id", OtherKey="Employees_id")]
+		public EntitySet<Contract> Contracts
+		{
+			get
+			{
+				return this._Contracts;
+			}
+			set
+			{
+				this._Contracts.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2707,18 +2311,6 @@ namespace KAS0110.Models.Linq
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Contracts(Contract entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employee = this;
-		}
-		
-		private void detach_Contracts(Contract entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employee = null;
 		}
 		
 		private void attach_EmployeeAttendances(EmployeeAttendance entity)
@@ -2767,6 +2359,18 @@ namespace KAS0110.Models.Linq
 		{
 			this.SendPropertyChanging();
 			entity.Employee1 = null;
+		}
+		
+		private void attach_Contracts(Contract entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = this;
+		}
+		
+		private void detach_Contracts(Contract entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = null;
 		}
 	}
 	
@@ -4306,6 +3910,450 @@ namespace KAS0110.Models.Linq
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contract")]
+	public partial class Contract : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _Customers_id;
+		
+		private int _Employees_id;
+		
+		private System.DateTime _CustomerArrival;
+		
+		private short _GarageNumber;
+		
+		private System.Nullable<System.DateTime> _CustomerExit;
+		
+		private System.Nullable<int> _Payment;
+		
+		private System.Nullable<bool> _VAT;
+		
+		private char _MethodOfPayment;
+		
+		private System.Nullable<int> _VoiceID;
+		
+		private EntitySet<WorkItem> _WorkItems;
+		
+		private EntitySet<Consumable> _Consumables;
+		
+		private EntitySet<Item> _Items;
+		
+		private EntityRef<Customer> _Customer;
+		
+		private EntityRef<Employee> _Employee;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnCustomers_idChanging(int value);
+    partial void OnCustomers_idChanged();
+    partial void OnEmployees_idChanging(int value);
+    partial void OnEmployees_idChanged();
+    partial void OnCustomerArrivalChanging(System.DateTime value);
+    partial void OnCustomerArrivalChanged();
+    partial void OnGarageNumberChanging(short value);
+    partial void OnGarageNumberChanged();
+    partial void OnCustomerExitChanging(System.Nullable<System.DateTime> value);
+    partial void OnCustomerExitChanged();
+    partial void OnPaymentChanging(System.Nullable<int> value);
+    partial void OnPaymentChanged();
+    partial void OnVATChanging(System.Nullable<bool> value);
+    partial void OnVATChanged();
+    partial void OnMethodOfPaymentChanging(char value);
+    partial void OnMethodOfPaymentChanged();
+    partial void OnVoiceIDChanging(System.Nullable<int> value);
+    partial void OnVoiceIDChanged();
+    #endregion
+		
+		public Contract()
+		{
+			this._WorkItems = new EntitySet<WorkItem>(new Action<WorkItem>(this.attach_WorkItems), new Action<WorkItem>(this.detach_WorkItems));
+			this._Consumables = new EntitySet<Consumable>(new Action<Consumable>(this.attach_Consumables), new Action<Consumable>(this.detach_Consumables));
+			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			this._Customer = default(EntityRef<Customer>);
+			this._Employee = default(EntityRef<Employee>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customers_id", DbType="Int NOT NULL")]
+		public int Customers_id
+		{
+			get
+			{
+				return this._Customers_id;
+			}
+			set
+			{
+				if ((this._Customers_id != value))
+				{
+					if (this._Customer.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCustomers_idChanging(value);
+					this.SendPropertyChanging();
+					this._Customers_id = value;
+					this.SendPropertyChanged("Customers_id");
+					this.OnCustomers_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Employees_id", DbType="Int NOT NULL")]
+		public int Employees_id
+		{
+			get
+			{
+				return this._Employees_id;
+			}
+			set
+			{
+				if ((this._Employees_id != value))
+				{
+					if (this._Employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEmployees_idChanging(value);
+					this.SendPropertyChanging();
+					this._Employees_id = value;
+					this.SendPropertyChanged("Employees_id");
+					this.OnEmployees_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerArrival", DbType="DateTime NOT NULL")]
+		public System.DateTime CustomerArrival
+		{
+			get
+			{
+				return this._CustomerArrival;
+			}
+			set
+			{
+				if ((this._CustomerArrival != value))
+				{
+					this.OnCustomerArrivalChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerArrival = value;
+					this.SendPropertyChanged("CustomerArrival");
+					this.OnCustomerArrivalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GarageNumber", DbType="SmallInt NOT NULL")]
+		public short GarageNumber
+		{
+			get
+			{
+				return this._GarageNumber;
+			}
+			set
+			{
+				if ((this._GarageNumber != value))
+				{
+					this.OnGarageNumberChanging(value);
+					this.SendPropertyChanging();
+					this._GarageNumber = value;
+					this.SendPropertyChanged("GarageNumber");
+					this.OnGarageNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerExit", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CustomerExit
+		{
+			get
+			{
+				return this._CustomerExit;
+			}
+			set
+			{
+				if ((this._CustomerExit != value))
+				{
+					this.OnCustomerExitChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerExit = value;
+					this.SendPropertyChanged("CustomerExit");
+					this.OnCustomerExitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Payment", DbType="Int")]
+		public System.Nullable<int> Payment
+		{
+			get
+			{
+				return this._Payment;
+			}
+			set
+			{
+				if ((this._Payment != value))
+				{
+					this.OnPaymentChanging(value);
+					this.SendPropertyChanging();
+					this._Payment = value;
+					this.SendPropertyChanged("Payment");
+					this.OnPaymentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VAT", DbType="Bit")]
+		public System.Nullable<bool> VAT
+		{
+			get
+			{
+				return this._VAT;
+			}
+			set
+			{
+				if ((this._VAT != value))
+				{
+					this.OnVATChanging(value);
+					this.SendPropertyChanging();
+					this._VAT = value;
+					this.SendPropertyChanged("VAT");
+					this.OnVATChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodOfPayment", DbType="Char(1) NOT NULL")]
+		public char MethodOfPayment
+		{
+			get
+			{
+				return this._MethodOfPayment;
+			}
+			set
+			{
+				if ((this._MethodOfPayment != value))
+				{
+					this.OnMethodOfPaymentChanging(value);
+					this.SendPropertyChanging();
+					this._MethodOfPayment = value;
+					this.SendPropertyChanged("MethodOfPayment");
+					this.OnMethodOfPaymentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoiceID", DbType="Int")]
+		public System.Nullable<int> VoiceID
+		{
+			get
+			{
+				return this._VoiceID;
+			}
+			set
+			{
+				if ((this._VoiceID != value))
+				{
+					this.OnVoiceIDChanging(value);
+					this.SendPropertyChanging();
+					this._VoiceID = value;
+					this.SendPropertyChanged("VoiceID");
+					this.OnVoiceIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_WorkItem", Storage="_WorkItems", ThisKey="id", OtherKey="Contract_id")]
+		public EntitySet<WorkItem> WorkItems
+		{
+			get
+			{
+				return this._WorkItems;
+			}
+			set
+			{
+				this._WorkItems.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Consumable", Storage="_Consumables", ThisKey="id", OtherKey="Contract_id")]
+		public EntitySet<Consumable> Consumables
+		{
+			get
+			{
+				return this._Consumables;
+			}
+			set
+			{
+				this._Consumables.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Item", Storage="_Items", ThisKey="id", OtherKey="Contract_id")]
+		public EntitySet<Item> Items
+		{
+			get
+			{
+				return this._Items;
+			}
+			set
+			{
+				this._Items.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Contract", Storage="_Customer", ThisKey="Customers_id", OtherKey="id", IsForeignKey=true)]
+		public Customer Customer
+		{
+			get
+			{
+				return this._Customer.Entity;
+			}
+			set
+			{
+				Customer previousValue = this._Customer.Entity;
+				if (((previousValue != value) 
+							|| (this._Customer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Customer.Entity = null;
+						previousValue.Contracts.Remove(this);
+					}
+					this._Customer.Entity = value;
+					if ((value != null))
+					{
+						value.Contracts.Add(this);
+						this._Customers_id = value.id;
+					}
+					else
+					{
+						this._Customers_id = default(int);
+					}
+					this.SendPropertyChanged("Customer");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Contract", Storage="_Employee", ThisKey="Employees_id", OtherKey="id", IsForeignKey=true)]
+		public Employee Employee
+		{
+			get
+			{
+				return this._Employee.Entity;
+			}
+			set
+			{
+				Employee previousValue = this._Employee.Entity;
+				if (((previousValue != value) 
+							|| (this._Employee.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employee.Entity = null;
+						previousValue.Contracts.Remove(this);
+					}
+					this._Employee.Entity = value;
+					if ((value != null))
+					{
+						value.Contracts.Add(this);
+						this._Employees_id = value.id;
+					}
+					else
+					{
+						this._Employees_id = default(int);
+					}
+					this.SendPropertyChanged("Employee");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_WorkItems(WorkItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = this;
+		}
+		
+		private void detach_WorkItems(WorkItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = null;
+		}
+		
+		private void attach_Consumables(Consumable entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = this;
+		}
+		
+		private void detach_Consumables(Consumable entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = null;
+		}
+		
+		private void attach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = this;
+		}
+		
+		private void detach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = null;
 		}
 	}
 }

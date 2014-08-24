@@ -283,8 +283,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Contracts\InvoiceItemsTable.cs" />
-    <Compile Include="Contracts\ItemOfInvoice.cs" />
+    <Compile Include="Models\Linq\InvoiceItemsTable.cs" />
+    <Compile Include="Models\Linq\ItemOfInvoice.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

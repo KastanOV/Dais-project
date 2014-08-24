@@ -207,6 +207,19 @@ namespace KAS0110
                 return;
             }
         }
+
+        protected void ButtonSaveWitoutID_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ButtonSaveAndPrint_Click(object sender, EventArgs e)
+        {
+            
+            
+
+            Response.Redirect("~/Contracts/PrintBill.aspx?ContractId=" + ContractID.Value.ToString() + "&ZpusobPlatby=" + DropDownListZpusobPlatby.SelectedValue.ToString());
+        }
         
         
     }

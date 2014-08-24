@@ -76,13 +76,13 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.Label DIC;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// DropDownListZpusobPlatby control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListZpusobPlatby;
         
         /// <summary>
         /// LabelEmployeeName control.
@@ -335,5 +335,23 @@ namespace KAS0110 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceTires;
+        
+        /// <summary>
+        /// ButtonSaveWitoutID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonSaveWitoutID;
+        
+        /// <summary>
+        /// ButtonSaveAndPrint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonSaveAndPrint;
     }
 }

@@ -585,6 +585,9 @@ where MethodOfPayment is null
 alter table Contract
 alter column MethodOfPayment char(1) not null
 
+alter table Contract
+add VoiceID int null
+
 -- Oracle SQL Developer Data Modeler Summary Report: 
 -- 
 -- CREATE TABLE                            11

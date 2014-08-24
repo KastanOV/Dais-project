@@ -13,6 +13,15 @@ namespace KAS0110 {
     public partial class WebForm24 {
         
         /// <summary>
+        /// HiddenFieldContractID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldContractID;
+        
+        /// <summary>
         /// LabelDokladCislo control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace KAS0110 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelDatumDUZP;
+        
+        /// <summary>
+        /// LabelZpusobPlatby control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelZpusobPlatby;
         
         /// <summary>
         /// LabelVariabilniSymbol control.
@@ -101,5 +119,41 @@ namespace KAS0110 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelOdberatelDIC;
+        
+        /// <summary>
+        /// GridView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// ObjectDataSourceItemsOfInvoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSourceItemsOfInvoice;
+        
+        /// <summary>
+        /// LabelTotalPriceWithoutVat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelTotalPriceWithoutVat;
+        
+        /// <summary>
+        /// LabelTotalPriceWithVat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelTotalPriceWithVat;
     }
 }

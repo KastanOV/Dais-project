@@ -13,28 +13,11 @@
       <Column Name="CompanyName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="ICO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="DIC" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
-      <Association Name="Customer_Contract" Member="Contracts" ThisKey="id" OtherKey="Customers_id" Type="Contract" />
       <Association Name="Customer_BazarTire" Member="BazarTires" ThisKey="id" OtherKey="Customers_id" Type="BazarTire" />
       <Association Name="Customer_CarFleet" Member="CarFleets" ThisKey="id" OtherKey="Customers_id" Type="CarFleet" />
       <Association Name="Customer_Order" Member="Orders" ThisKey="id" OtherKey="Customers_id" Type="Order" />
       <Association Name="Customer_StoredWheelsDescription" Member="StoredWheelsDescriptions" ThisKey="id" OtherKey="Customers_id" Type="StoredWheelsDescription" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Contract" Member="Contracts">
-    <Type Name="Contract">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CustomerArrival" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="GarageNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="CustomerExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
-      <Association Name="Contract_Consumable" Member="Consumables" ThisKey="id" OtherKey="Contract_id" Type="Consumable" />
-      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
-      <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
-      <Association Name="Employee_Contract" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
+      <Association Name="Customer_Contract" Member="Contracts" ThisKey="id" OtherKey="Customers_id" Type="Contract" />
     </Type>
   </Table>
   <Table Name="dbo.SuplierTiresOKpneu" Member="SuplierTiresOKpneus">
@@ -112,11 +95,11 @@
       <Column Name="Adress" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="City" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="Experience" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
-      <Association Name="Employee_Contract" Member="Contracts" ThisKey="id" OtherKey="Employees_id" Type="Contract" />
       <Association Name="Employee_EmployeeAttendance" Member="EmployeeAttendances" ThisKey="id" OtherKey="Employees_id" Type="EmployeeAttendance" />
       <Association Name="Employee_Order" Member="Orders" ThisKey="id" OtherKey="Employees_id" Type="Order" />
       <Association Name="Employee_StoredWheelsDescription" Member="StoredWheelsDescriptions" ThisKey="id" OtherKey="Employees_id_Store" Type="StoredWheelsDescription" />
       <Association Name="Employee_StoredWheelsDescription1" Member="StoredWheelsDescriptions1" ThisKey="id" OtherKey="Employees_id_Unstore" Type="StoredWheelsDescription" />
+      <Association Name="Employee_Contract" Member="Contracts" ThisKey="id" OtherKey="Employees_id" Type="Contract" />
     </Type>
   </Table>
   <Table Name="dbo.[Order]" Member="Orders">
@@ -200,6 +183,25 @@
       <Column Name="COUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Contract_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Contract_Item" Member="Contract" ThisKey="Contract_id" OtherKey="id" Type="Contract" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contract" Member="Contracts">
+    <Type Name="Contract">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customers_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Employees_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerArrival" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GarageNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Payment" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VAT" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MethodOfPayment" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="VoiceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Contract_WorkItem" Member="WorkItems" ThisKey="id" OtherKey="Contract_id" Type="WorkItem" />
+      <Association Name="Contract_Consumable" Member="Consumables" ThisKey="id" OtherKey="Contract_id" Type="Consumable" />
+      <Association Name="Contract_Item" Member="Items" ThisKey="id" OtherKey="Contract_id" Type="Item" />
+      <Association Name="Customer_Contract" Member="Customer" ThisKey="Customers_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Employee_Contract" Member="Employee" ThisKey="Employees_id" OtherKey="id" Type="Employee" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.InsertItemsFaktura" Method="InsertItemsFaktura">

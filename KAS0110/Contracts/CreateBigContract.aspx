@@ -25,7 +25,7 @@
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-        <asp:DropDownList ID="DropDownList1" runat="server">
+        <asp:DropDownList ID="DropDownListZpusobPlatby" runat="server">
             <asp:ListItem Selected="True" Value="H">Hotově</asp:ListItem>
             <asp:ListItem Value="P">Převodem</asp:ListItem>
         </asp:DropDownList>
@@ -271,5 +271,20 @@
         </SelectParameters>
         
     </asp:SqlDataSource>
+       
+    <asp:Table runat="server">
+        <asp:TableHeaderRow>
+            <asp:TableHeaderCell Width="40%">
+                <asp:Button ID="ButtonSaveWitoutID" runat="server" BackColor="Green" Text="Uložit fakturu bez tisku dokladu" OnClick="ButtonSaveWitoutID_Click" CssClass="form-control" />
+            </asp:TableHeaderCell>
+            <asp:TableHeaderCell Width="20%">
+
+            </asp:TableHeaderCell>
+            <asp:TableHeaderCell Width="40%">
+                <asp:Button ID="ButtonSaveAndPrint" runat="server" BackColor="Red" Text="Vytisknout Fakturu" OnClick="ButtonSaveAndPrint_Click" CssClass="form-control" />
+            </asp:TableHeaderCell>
+        </asp:TableHeaderRow>
+    </asp:Table>
+
 </asp:Content>
 
