@@ -16,7 +16,6 @@ namespace KAS0110
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             try
             {
                 ContractId = Int32.Parse(Server.UrlDecode(Request.QueryString["ContractId"]));
@@ -27,9 +26,15 @@ namespace KAS0110
                 Response.Redirect("~/");
             }
             HiddenFieldContractID.Value = ContractId.ToString();
+            FillInvoice();
+            CreateNewInvoiceID();
+        }
+
+        private void FillInvoice()
+        {
             DateTime time = DateTime.Now;
-            string Year = time.Year.ToString();           
-            
+            string Year = time.Year.ToString();
+
             var customer = (from i in db.Contracts
                             join j in db.Customers on i.Customers_id equals j.id
                             where i.id == ContractId
@@ -53,7 +58,7 @@ namespace KAS0110
             if (ZpusobPlatby == "H")
             {
                 string datum = time.Day.ToString() + "." + time.Month.ToString() + "." + time.Year.ToString();
-                LabelDatumVystaveni.Text =  datum;
+                LabelDatumVystaveni.Text = datum;
                 LabelDatumSplatnosti.Text = datum;
                 LabelDatumDUZP.Text = datum;
                 LabelZpusobPlatby.Text = "Hotově";
@@ -61,7 +66,7 @@ namespace KAS0110
             else if (ZpusobPlatby == "P")
             {
                 string datum = time.Day.ToString() + "." + time.Month.ToString() + "." + time.Year.ToString();
-                LabelDatumVystaveni.Text =  datum;
+                LabelDatumVystaveni.Text = datum;
                 LabelDatumDUZP.Text = datum;
                 TimeSpan DaysInc = new TimeSpan(14, 0, 0, 0);
                 time = time + DaysInc;
@@ -76,38 +81,89 @@ namespace KAS0110
             LabelTotalPriceWithoutVat.Text = TotalWithoutVat.ToString() + " Kč";
             LabelTotalPriceWithVat.Text = TotalWithVat.ToString() + " Kč";
         }
-
         private void CreateNewInvoiceID()
         {
-            
+            int LastInvoiceID;
 
             var ContractToUpdateInvoiceID = (from i in db.Contracts
                                              where i.id == ContractId
                                              select i).First();
-            int LastInvoiceID;
-
-            try
-            {
-                LastInvoiceID = (from i in db.Contracts
-                                 where i.CustomerArrival.Year == DateTime.Now.Year
-                                 select i.VoiceID).Max(x => x.Value);
-            }
-            catch
-            {
-                LastInvoiceID = 1;
-            }
-
-            LastInvoiceID += 1;
-
-            ContractToUpdateInvoiceID.VoiceID = LastInvoiceID;
-            db.SubmitChanges();
-
-            string InvoiceNumber = "00000";
             
-            int Length = LastInvoiceID.ToString().Length;
+            if (ContractToUpdateInvoiceID.VoiceID == null)
+            {
+                try
+                {
+                    LastInvoiceID = (from i in db.Contracts
+                                     where i.CustomerArrival.Year == DateTime.Now.Year
+                                     select i.VoiceID).Max(x => x.Value);
+                }
+                catch
+                {
+                    LastInvoiceID = 1;
+                }
+
+                LastInvoiceID += 1;
+
+                ContractToUpdateInvoiceID.VoiceID = LastInvoiceID;
+                db.SubmitChanges();
+
+                string InvoiceNumber;
+
+                switch (LastInvoiceID.ToString().Length)
+                {
+                    case 1:
+                        InvoiceNumber = "0000" + LastInvoiceID.ToString();
+                        break;
+                    case 2:
+                        InvoiceNumber = "000" + LastInvoiceID.ToString();
+                        break;
+                    case 3:
+                        InvoiceNumber = "00" + LastInvoiceID.ToString();
+                        break;
+                    case 4:
+                        InvoiceNumber = "0" + LastInvoiceID.ToString();
+                        break;
+                    default:
+                        InvoiceNumber = LastInvoiceID.ToString();
+                        break;
+                }
+                LabelDokladCislo.Text = DateTime.Now.Year + InvoiceNumber;
+                LabelVariabilniSymbol.Text = DateTime.Now.Year + InvoiceNumber;
+            }
+            else
+            {
+                LastInvoiceID = (int)ContractToUpdateInvoiceID.VoiceID;
+                string InvoiceNumber;
+
+                switch (LastInvoiceID.ToString().Length)
+                {
+                    case 1:
+                        InvoiceNumber = "0000" + LastInvoiceID.ToString();
+                        break;
+                    case 2:
+                        InvoiceNumber = "000" + LastInvoiceID.ToString();
+                        break;
+                    case 3:
+                        InvoiceNumber = "00" + LastInvoiceID.ToString();
+                        break;
+                    case 4:
+                        InvoiceNumber = "0" + LastInvoiceID.ToString();
+                        break;
+                    default:
+                        InvoiceNumber = LastInvoiceID.ToString();
+                        break;
+                }
+                LabelDokladCislo.Text = DateTime.Now.Year + InvoiceNumber;
+                LabelVariabilniSymbol.Text = DateTime.Now.Year + InvoiceNumber;
+            }
             
-            LabelDokladCislo.Text = "007/";
-            LabelVariabilniSymbol.Text = "0007";
+        }
+
+        protected void ButtonPrint_Click(object sender, EventArgs e)
+        {
+            ButtonPrint.Visible = false;
+            Page.RegisterStartupScript("PrintPage", "<script language='javascript'>window.print(); window.location.replace(\"Contracts.aspx\");</script>");
+            
         }
     }
 }

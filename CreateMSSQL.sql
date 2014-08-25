@@ -158,10 +158,21 @@ GO
 CREATE
   TABLE OrderSuplierTiresOKPneu
   (
+    Id INTEGER NOT NULL IDENTITY NOT FOR REPLICATION
     SuplierTiresOKpneu_EAN VARCHAR (14) NOT NULL ,
     Order_Id               INTEGER NOT NULL ,
     ProductCount           INTEGER NOT NULL ,
-    PricePerPiece MONEY NOT NULL )
+    PricePerPiece MONEY NOT NULL ,
+    CONSTRAINT OrderSuplierTiresOKPneu_PK PRIMARY KEY CLUSTERED (Id)
+WITH
+  (
+    ALLOW_PAGE_LOCKS = ON ,
+    ALLOW_ROW_LOCKS  = ON
+  )
+  ON "default"
+  )
+  ON "default"
+)
     
 GO
 
@@ -217,7 +228,7 @@ GO
 
 CREATE TABLE [dbo].[SuplierTiresOKpneu](
 	[EAN] [varchar](14) NOT NULL,
-	[Manufacturer] [varchar](10) NOT NULL,
+	[Manufacturer] [varchar](20) NOT NULL,
 	[Size] [int] NOT NULL,
 	[ExternalStore] [int] NOT NULL,
 	[code] [varchar](15) NULL,

@@ -59,27 +59,52 @@ end
 
 go
 
+USE [PneuservisV2]
+GO
+/****** Object:  StoredProcedure [dbo].[ContractArrival]    Script Date: 25.8.2014 14:05:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
 create procedure [dbo].[ContractArrival] @p_CustomerID int, @p_EmployeesID int,  @p_GarageNumber smallint
 as
 	declare @ResultCounter int;
 	declare @v_result int;
+	declare @v_FirstRun int;
 begin
+	select  @v_FirstRun = count(*) from Contract
+
+	if  @v_FirstRun = 0
+	begin try
+			insert into Contract (Customers_id, Employees_id, CustomerArrival, GarageNumber)
+			values (@p_CustomerID, @p_EmployeesID, getdate(), @p_GarageNumber);
+			commit;
+		--set @p_result = 1;
+		end try
+		begin catch
+		rollback
+			--set @p_result = 0;
+		end catch;
+
 	select @v_result = count(*) from Contract
 	where GarageNumber = @p_GarageNumber and CustomerExit is null;
+
 	if @v_result = 0
 		begin try
 			insert into Contract (Customers_id, Employees_id, CustomerArrival, GarageNumber)
 			values (@p_CustomerID, @p_EmployeesID, getdate(), @p_GarageNumber);
-			
+			commit
 		--set @p_result = 1;
 		end try
 		begin catch
+		rollback
 			--set @p_result = 0;
 		end catch;
 	--else 
 		--set @p_result = 0; 
 end
-go
+
 
 create procedure [dbo].[ContractExit] @p_GarageNumber smallint, @p_Payment int, @p_VAT bit
 as

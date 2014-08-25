@@ -10,7 +10,7 @@ namespace KAS0110.Models.Database
 {
     public class CustomerTable
     {
-        string SQL_INSERT = "insert into Customers Values(@p_email, @p_fname,@p_lname, @p_phone, @p_adress, @p_city, @p_postal);";
+        string SQL_INSERT = "insert into Customers() Values(@p_email, @p_fname,@p_lname, @p_phone, @p_adress, @p_city, @p_postal);";
         string SQL_UPDATE = "update Customers set email = @p_email, fname = @p_fname, lname = @p_lname, phone = @p_phone, adress = @p_adress, city = @p_city, postalCode = @p_postal where @p_id = id ";
         string SQL_SELECT = "select * from Customers where lname like @p_lname";
         string SQL_SELECT_BY_ID= "select * from Customers where id = @p_id";

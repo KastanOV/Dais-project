@@ -13,6 +13,33 @@ namespace KAS0110 {
     public partial class WebForm11 {
         
         /// <summary>
+        /// TextBoxCompanyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxCompanyName;
+        
+        /// <summary>
+        /// TextBoxIC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxIC;
+        
+        /// <summary>
+        /// TextBoxDIC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxDIC;
+        
+        /// <summary>
         /// TextBoxEmail control.
         /// </summary>
         /// <remarks>

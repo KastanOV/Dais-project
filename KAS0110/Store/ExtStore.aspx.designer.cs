@@ -13,6 +13,33 @@ namespace KAS0110 {
     public partial class WebForm9 {
         
         /// <summary>
+        /// HiddenTireSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenTireSize;
+        
+        /// <summary>
+        /// HiddenSelectedDropDownNamufacturer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenSelectedDropDownNamufacturer;
+        
+        /// <summary>
+        /// HiddenFieldSeason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldSeason;
+        
+        /// <summary>
         /// TextBoxSize control.
         /// </summary>
         /// <remarks>
@@ -20,15 +47,6 @@ namespace KAS0110 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxSize;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// DropDownList1 control.
@@ -49,42 +67,6 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
         
         /// <summary>
-        /// CheckBoxExtStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxExtStore;
-        
-        /// <summary>
-        /// LabelExtStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelExtStore;
-        
-        /// <summary>
-        /// CheckBoxLocStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxLocStore;
-        
-        /// <summary>
-        /// LabelLocStore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelLocStore;
-        
-        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>
@@ -94,22 +76,22 @@ namespace KAS0110 {
         protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// ObjectDataSource1 control.
+        /// SqlDataSourceDropDownlist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceDropDownlist;
         
         /// <summary>
-        /// ObjectDataSource2 control.
+        /// SqlDataSourceTireGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource2;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceTireGridView;
         
         /// <summary>
         /// ButtonAddOrder control.
@@ -119,5 +101,14 @@ namespace KAS0110 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonAddOrder;
+        
+        /// <summary>
+        /// ButtonAddToStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAddToStore;
     }
 }

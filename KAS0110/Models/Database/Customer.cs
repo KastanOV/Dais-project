@@ -15,6 +15,9 @@ namespace KAS0110.Models.Database
         public string adress { get; set; }
         public string city { get; set; }
         public int postaCode { get; set; }
+        public string CompanyName { get; set; }
+        public string IC { get; set; }
+        public string DIC { get; set; }
 
         public override string ToString()
         {

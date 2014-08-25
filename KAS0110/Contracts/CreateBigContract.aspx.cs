@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using KAS0110.Models.Linq;
+using System.Threading;
 
 namespace KAS0110
 {
     public partial class WebForm21 : System.Web.UI.Page
     {
         int GarageNumber;
+        
+        DataClassesDataContext db = new DataClassesDataContext();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -25,7 +28,6 @@ namespace KAS0110
         }
         private void LoadInfo()
         {
-            DataClassesDataContext db = new DataClassesDataContext();
             var data = (from i in db.Contracts
                        join j in db.Customers on i.Customers_id equals j.id
                        join k in db.Employees on i.Employees_id equals k.id
@@ -38,11 +40,12 @@ namespace KAS0110
             DIC.Text = data.DIC;
             ContractID.Value = data.id.ToString();
             LabelEmployeeName.Text = data.Fname + " " + data.Lname + " " + data.login;
+            makeTotalPrices();
         }
 
         protected void ButtonAddWork_Click(object sender, EventArgs e)
         {
-            DataClassesDataContext db = new DataClassesDataContext();
+            
             var item = (from i in db.WorkItemsReadies
                         where i.id == Int32.Parse(DropDownList2.Text)
                         select i).First();
@@ -61,7 +64,7 @@ namespace KAS0110
 
         protected void ButtonAddItems_Click(object sender, EventArgs e)
         {
-            DataClassesDataContext db = new DataClassesDataContext();
+            
             var item = (from i in db.ConsumablesReadies
                         where i.id == Int32.Parse(DropDownListCustomables.SelectedValue)
                         select i).First();
@@ -210,15 +213,25 @@ namespace KAS0110
 
         protected void ButtonSaveWitoutID_Click(object sender, EventArgs e)
         {
-
+            int ContractIDProp = Int32.Parse(ContractID.Value);
+            InvoiceItemsTable Invoice = new InvoiceItemsTable();
+            db.ContractExit((short)GarageNumber, (int)(Invoice.WorkItemsWithoutVat(ContractIDProp) + ((double)Invoice.CunsumablesItemsWithouVat(ContractIDProp) * (double)1.21)), false);
+            Response.Redirect("~/Contracts/Contracts");
         }
 
         protected void ButtonSaveAndPrint_Click(object sender, EventArgs e)
         {
-            
-            
-
+            int ContractIDProp = Int32.Parse(ContractID.Value);
+            InvoiceItemsTable Invoice = new InvoiceItemsTable();
+            db.ContractExit((short)GarageNumber, (int)(((double)Invoice.WorkItemsWithoutVat(ContractIDProp) * (double)1.21 + ((double)Invoice.CunsumablesItemsWithouVat(ContractIDProp) * (double)1.21))), true);
             Response.Redirect("~/Contracts/PrintBill.aspx?ContractId=" + ContractID.Value.ToString() + "&ZpusobPlatby=" + DropDownListZpusobPlatby.SelectedValue.ToString());
+        }
+        private void makeTotalPrices()
+        {
+            InvoiceItemsTable Invoice = new InvoiceItemsTable();
+            int ContractIDProp = Int32.Parse(ContractID.Value);
+            LabelPaymentWithoutVat.Text = ((int)(Invoice.WorkItemsWithoutVat(ContractIDProp) + ((double)Invoice.CunsumablesItemsWithouVat(ContractIDProp) * (double)1.21))).ToString();
+            LabelPaymentwithVat.Text = ((int)(((double)Invoice.WorkItemsWithoutVat(ContractIDProp) * (double)1.21 + ((double)Invoice.CunsumablesItemsWithouVat(ContractIDProp) * (double)1.21)))).ToString();
         }
         
         

@@ -18,7 +18,7 @@ namespace KAS0110.Models.Database
         string SQL_SELECT_BY_DETAIL = "select * from SuplierTiresOKpneu where Size = @p_Size";
         string SQL_SELECT_BY_DETAIL_SIZE_WITHOUT_MANU = "select * from SuplierTiresOKpneu where Size = @p_Size and season = @p_Season and ExternalStore >= @p_OnExternalStore and OnStore >= @p_OnLocalStore";
         string SQL_SELECT_BY_DETAIL_SIZE = "select * from SuplierTiresOKpneu where Size = @p_Size and season = @p_Season and ExternalStore >= @p_OnExternalStore and OnStore >= @p_OnLocalStore and manufacturer = @p_manu";
-        string SQL_FIND_MANUFACTURER = "select distinct(manufacturer) from SuplierTiresOKpneu order by manufacturer";
+        string SQL_FIND_MANUFACTURER = "select distinct(manufacturer) from SuplierTiresOKpneu where ExternalStore > 0 order by manufacturer";
         string SQL_FIND_BY_EAN = "select Name, Price from SuplierTiresOKpneu where EAN = @p_EAN";
         string connectionString;
 

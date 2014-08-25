@@ -195,6 +195,7 @@
     <Content Include="Contracts\WorkItemsReady.aspx" />
     <Content Include="Contracts\AddCunsumables.aspx" />
     <Content Include="Contracts\PrintBill.aspx" />
+    <Content Include="Account\FirstRun.aspx" />
     <None Include="Properties\PublishProfiles\Kastan.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -506,6 +507,13 @@
     </Compile>
     <Compile Include="Contracts\PrintBill.aspx.designer.cs">
       <DependentUpon>PrintBill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\FirstRun.aspx.cs">
+      <DependentUpon>FirstRun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\FirstRun.aspx.designer.cs">
+      <DependentUpon>FirstRun.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

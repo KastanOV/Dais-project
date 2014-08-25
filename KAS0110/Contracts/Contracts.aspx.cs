@@ -20,104 +20,57 @@ namespace KAS0110
         {
             Contract con = new Contract();
             EmployeeTable empTable = new EmployeeTable();
-            if (st1)
+
+            try
             {
-                try
-                {
-                    con.CustomerId = Int32.Parse(GridView1.SelectedValue.ToString());
-                }
-                catch
-                {
-                    Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat klienta');", true);
-                    return;
-                }
+                con.CustomerId = Int32.Parse(GridView1.SelectedValue.ToString());
             }
-            if(empTable.CheckPasword(Int32.Parse(DropDownList1.SelectedValue.ToString()), TextBox1.Text))
+            catch
             {
-                ContractTable conTable = new ContractTable();
-                con.EmployeesId = Int32.Parse(DropDownList1.SelectedValue.ToString());
-                
-                con.GarageNumber = 1;
-                if (st1)
-                {
-                    conTable.Arrival(con);
-                    Response.Redirect("~/Contracts/Contracts");
-                }
-                else
-                {
-                    try
-                    {
-                        conTable.Exit(con);
-                        Response.Redirect("~/Contracts/Contracts");
-                    }
-                    catch
-                    {
-                        Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Něco tam máte špatně.');", true);
-                        return;
-                    }
-                }
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat klienta');", true);
+                return;
             }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Špatné heslo');", true);
-            }
-            
+
+
+            ContractTable conTable = new ContractTable();
+            con.EmployeesId = Int32.Parse(DropDownList1.SelectedValue.ToString());
+
+            con.GarageNumber = 1;
+
+            conTable.Arrival(con);
+            Response.Redirect("~/Contracts/Contracts");
+
         }
 
         protected void ButtonStani2_Click(object sender, EventArgs e)
         {
             Contract con = new Contract();
             EmployeeTable empTable = new EmployeeTable();
-            if (st2)
-            {
-                try
-                {
-                    con.CustomerId = Int32.Parse(GridView1.SelectedValue.ToString());
-                }
-                catch
-                {
-                    Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat klienta');", true);
-                    return;
-                }
-            }
-            if (empTable.CheckPasword(Int32.Parse(DropDownList1.SelectedValue.ToString()), TextBox1.Text))
-            {
-                ContractTable conTable = new ContractTable();
-                con.EmployeesId = Int32.Parse(DropDownList1.SelectedValue.ToString());
 
-                con.GarageNumber = 2;
-                if (st2)
-                {
-                    conTable.Arrival(con);
-                    Response.Redirect("~/Contracts/Contracts");
-                }
-                else
-                {
-                    try
-                    {
-                        
-                        conTable.Exit(con);
-                        Response.Redirect("~/Contracts/Contracts");
-                    }
-                    catch
-                    {
-                        Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Něco tam máte špatně.');", true);
-                        return;
-                    }
-                }
-            }
-            else
+            try
             {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Špatné heslo');", true);
+                con.CustomerId = Int32.Parse(GridView1.SelectedValue.ToString());
             }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat klienta');", true);
+                return;
+            }
+            ContractTable conTable = new ContractTable();
+            con.EmployeesId = Int32.Parse(DropDownList1.SelectedValue.ToString());
+
+            con.GarageNumber = 2;
+
+            conTable.Arrival(con);
+            Response.Redirect("~/Contracts/Contracts");
+
         }
 
         protected void ButtonStani3_Click(object sender, EventArgs e)
         {
             Contract con = new Contract();
             EmployeeTable empTable = new EmployeeTable();
-            if (st3)
-            {
+            
                 try
                 {
                     con.CustomerId = Int32.Parse(GridView1.SelectedValue.ToString());
@@ -127,37 +80,14 @@ namespace KAS0110
                     Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Nejdříve musíte vybrat klienta');", true);
                     return;
                 }
-            }
-            if (empTable.CheckPasword(Int32.Parse(DropDownList1.SelectedValue.ToString()), TextBox1.Text))
-            {
+            
                 ContractTable conTable = new ContractTable();
                 con.EmployeesId = Int32.Parse(DropDownList1.SelectedValue.ToString());
 
                 con.GarageNumber = 3;
-                if (st3)
-                {
+                
                     conTable.Arrival(con);
                     Response.Redirect("~/Contracts/Contracts");
-                }
-                else
-                {
-                    try
-                    {
-                        
-                        conTable.Exit(con);
-                        Response.Redirect("~/Contracts/Contracts");
-                    }
-                    catch
-                    {
-                        Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Něco tam máte špatně.');", true);
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('Špatné heslo');", true);
-            }
         }
 
         protected void ButtonAddCustomer_Click(object sender, EventArgs e)

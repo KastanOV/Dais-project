@@ -13,6 +13,15 @@ namespace KAS0110 {
     public partial class WebForm24 {
         
         /// <summary>
+        /// ButtonPrint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonPrint;
+        
+        /// <summary>
         /// HiddenFieldContractID control.
         /// </summary>
         /// <remarks>

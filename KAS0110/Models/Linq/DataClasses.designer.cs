@@ -75,6 +75,9 @@ namespace KAS0110.Models.Linq
     partial void InsertContract(Contract instance);
     partial void UpdateContract(Contract instance);
     partial void DeleteContract(Contract instance);
+    partial void InsertOrderSuplierTiresOKPneu(OrderSuplierTiresOKPneu instance);
+    partial void UpdateOrderSuplierTiresOKPneu(OrderSuplierTiresOKPneu instance);
+    partial void DeleteOrderSuplierTiresOKPneu(OrderSuplierTiresOKPneu instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -171,14 +174,6 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
-		public System.Data.Linq.Table<OrderSuplierTiresOKPneu> OrderSuplierTiresOKPneus
-		{
-			get
-			{
-				return this.GetTable<OrderSuplierTiresOKPneu>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PriceHistory> PriceHistories
 		{
 			get
@@ -235,11 +230,26 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		public System.Data.Linq.Table<OrderSuplierTiresOKPneu> OrderSuplierTiresOKPneus
+		{
+			get
+			{
+				return this.GetTable<OrderSuplierTiresOKPneu>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertItemsFaktura")]
 		public int InsertItemsFaktura([global::System.Data.Linq.Mapping.ParameterAttribute(Name="EAN", DbType="VarChar(15)")] string eAN, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="VarChar(20)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PricePerItem", DbType="Int")] System.Nullable<int> pricePerItem, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="COUNT", DbType="Int")] System.Nullable<int> cOUNT, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contract_id", DbType="Int")] System.Nullable<int> contract_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Info", DbType="Int")] ref System.Nullable<int> info)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eAN, name, pricePerItem, cOUNT, contract_id, info);
 			info = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ContractExit")]
+		public int ContractExit([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> p_GarageNumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> p_Payment, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> p_VAT)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), p_GarageNumber, p_Payment, p_VAT);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -716,6 +726,8 @@ namespace KAS0110.Models.Linq
 		
 		private EntitySet<PriceHistory> _PriceHistories;
 		
+		private EntitySet<OrderSuplierTiresOKPneu> _OrderSuplierTiresOKPneus;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -747,6 +759,7 @@ namespace KAS0110.Models.Linq
 		public SuplierTiresOKpneu()
 		{
 			this._PriceHistories = new EntitySet<PriceHistory>(new Action<PriceHistory>(this.attach_PriceHistories), new Action<PriceHistory>(this.detach_PriceHistories));
+			this._OrderSuplierTiresOKPneus = new EntitySet<OrderSuplierTiresOKPneu>(new Action<OrderSuplierTiresOKPneu>(this.attach_OrderSuplierTiresOKPneus), new Action<OrderSuplierTiresOKPneu>(this.detach_OrderSuplierTiresOKPneus));
 			OnCreated();
 		}
 		
@@ -983,6 +996,19 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SuplierTiresOKpneu_OrderSuplierTiresOKPneu", Storage="_OrderSuplierTiresOKPneus", ThisKey="EAN", OtherKey="SuplierTiresOKpneu_EAN")]
+		public EntitySet<OrderSuplierTiresOKPneu> OrderSuplierTiresOKPneus
+		{
+			get
+			{
+				return this._OrderSuplierTiresOKPneus;
+			}
+			set
+			{
+				this._OrderSuplierTiresOKPneus.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1010,6 +1036,18 @@ namespace KAS0110.Models.Linq
 		}
 		
 		private void detach_PriceHistories(PriceHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.SuplierTiresOKpneu = null;
+		}
+		
+		private void attach_OrderSuplierTiresOKPneus(OrderSuplierTiresOKPneu entity)
+		{
+			this.SendPropertyChanging();
+			entity.SuplierTiresOKpneu = this;
+		}
+		
+		private void detach_OrderSuplierTiresOKPneus(OrderSuplierTiresOKPneu entity)
 		{
 			this.SendPropertyChanging();
 			entity.SuplierTiresOKpneu = null;
@@ -2390,6 +2428,8 @@ namespace KAS0110.Models.Linq
 		
 		private char _status;
 		
+		private EntitySet<OrderSuplierTiresOKPneu> _OrderSuplierTiresOKPneus;
+		
 		private EntityRef<Customer> _Customer;
 		
 		private EntityRef<Employee> _Employee;
@@ -2412,6 +2452,7 @@ namespace KAS0110.Models.Linq
 		
 		public Order()
 		{
+			this._OrderSuplierTiresOKPneus = new EntitySet<OrderSuplierTiresOKPneu>(new Action<OrderSuplierTiresOKPneu>(this.attach_OrderSuplierTiresOKPneus), new Action<OrderSuplierTiresOKPneu>(this.detach_OrderSuplierTiresOKPneus));
 			this._Customer = default(EntityRef<Customer>);
 			this._Employee = default(EntityRef<Employee>);
 			OnCreated();
@@ -2525,6 +2566,19 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderSuplierTiresOKPneu", Storage="_OrderSuplierTiresOKPneus", ThisKey="Id", OtherKey="Order_Id")]
+		public EntitySet<OrderSuplierTiresOKPneu> OrderSuplierTiresOKPneus
+		{
+			get
+			{
+				return this._OrderSuplierTiresOKPneus;
+			}
+			set
+			{
+				this._OrderSuplierTiresOKPneus.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Customer", ThisKey="Customers_id", OtherKey="id", IsForeignKey=true)]
 		public Customer Customer
 		{
@@ -2612,86 +2666,17 @@ namespace KAS0110.Models.Linq
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OrderSuplierTiresOKPneu")]
-	public partial class OrderSuplierTiresOKPneu
-	{
 		
-		private string _SuplierTiresOKpneu_EAN;
-		
-		private int _Order_Id;
-		
-		private int _ProductCount;
-		
-		private decimal _PricePerPiece;
-		
-		public OrderSuplierTiresOKPneu()
+		private void attach_OrderSuplierTiresOKPneus(OrderSuplierTiresOKPneu entity)
 		{
+			this.SendPropertyChanging();
+			entity.Order = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuplierTiresOKpneu_EAN", DbType="VarChar(14) NOT NULL", CanBeNull=false)]
-		public string SuplierTiresOKpneu_EAN
+		private void detach_OrderSuplierTiresOKPneus(OrderSuplierTiresOKPneu entity)
 		{
-			get
-			{
-				return this._SuplierTiresOKpneu_EAN;
-			}
-			set
-			{
-				if ((this._SuplierTiresOKpneu_EAN != value))
-				{
-					this._SuplierTiresOKpneu_EAN = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Id", DbType="Int NOT NULL")]
-		public int Order_Id
-		{
-			get
-			{
-				return this._Order_Id;
-			}
-			set
-			{
-				if ((this._Order_Id != value))
-				{
-					this._Order_Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCount", DbType="Int NOT NULL")]
-		public int ProductCount
-		{
-			get
-			{
-				return this._ProductCount;
-			}
-			set
-			{
-				if ((this._ProductCount != value))
-				{
-					this._ProductCount = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PricePerPiece", DbType="Money NOT NULL")]
-		public decimal PricePerPiece
-		{
-			get
-			{
-				return this._PricePerPiece;
-			}
-			set
-			{
-				if ((this._PricePerPiece != value))
-				{
-					this._PricePerPiece = value;
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Order = null;
 		}
 	}
 	
@@ -3935,7 +3920,7 @@ namespace KAS0110.Models.Linq
 		
 		private System.Nullable<bool> _VAT;
 		
-		private char _MethodOfPayment;
+		private System.Nullable<char> _MethodOfPayment;
 		
 		private System.Nullable<int> _VoiceID;
 		
@@ -3969,7 +3954,7 @@ namespace KAS0110.Models.Linq
     partial void OnPaymentChanged();
     partial void OnVATChanging(System.Nullable<bool> value);
     partial void OnVATChanged();
-    partial void OnMethodOfPaymentChanging(char value);
+    partial void OnMethodOfPaymentChanging(System.Nullable<char> value);
     partial void OnMethodOfPaymentChanged();
     partial void OnVoiceIDChanging(System.Nullable<int> value);
     partial void OnVoiceIDChanged();
@@ -4153,8 +4138,8 @@ namespace KAS0110.Models.Linq
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodOfPayment", DbType="Char(1) NOT NULL")]
-		public char MethodOfPayment
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MethodOfPayment", DbType="Char(1)")]
+		public System.Nullable<char> MethodOfPayment
 		{
 			get
 			{
@@ -4354,6 +4339,246 @@ namespace KAS0110.Models.Linq
 		{
 			this.SendPropertyChanging();
 			entity.Contract = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OrderSuplierTiresOKPneu")]
+	public partial class OrderSuplierTiresOKPneu : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SuplierTiresOKpneu_EAN;
+		
+		private int _Order_Id;
+		
+		private int _ProductCount;
+		
+		private decimal _PricePerPiece;
+		
+		private int _id;
+		
+		private EntityRef<Order> _Order;
+		
+		private EntityRef<SuplierTiresOKpneu> _SuplierTiresOKpneu;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSuplierTiresOKpneu_EANChanging(string value);
+    partial void OnSuplierTiresOKpneu_EANChanged();
+    partial void OnOrder_IdChanging(int value);
+    partial void OnOrder_IdChanged();
+    partial void OnProductCountChanging(int value);
+    partial void OnProductCountChanged();
+    partial void OnPricePerPieceChanging(decimal value);
+    partial void OnPricePerPieceChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    #endregion
+		
+		public OrderSuplierTiresOKPneu()
+		{
+			this._Order = default(EntityRef<Order>);
+			this._SuplierTiresOKpneu = default(EntityRef<SuplierTiresOKpneu>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuplierTiresOKpneu_EAN", DbType="VarChar(14) NOT NULL", CanBeNull=false)]
+		public string SuplierTiresOKpneu_EAN
+		{
+			get
+			{
+				return this._SuplierTiresOKpneu_EAN;
+			}
+			set
+			{
+				if ((this._SuplierTiresOKpneu_EAN != value))
+				{
+					if (this._SuplierTiresOKpneu.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSuplierTiresOKpneu_EANChanging(value);
+					this.SendPropertyChanging();
+					this._SuplierTiresOKpneu_EAN = value;
+					this.SendPropertyChanged("SuplierTiresOKpneu_EAN");
+					this.OnSuplierTiresOKpneu_EANChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Id", DbType="Int NOT NULL")]
+		public int Order_Id
+		{
+			get
+			{
+				return this._Order_Id;
+			}
+			set
+			{
+				if ((this._Order_Id != value))
+				{
+					if (this._Order.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrder_IdChanging(value);
+					this.SendPropertyChanging();
+					this._Order_Id = value;
+					this.SendPropertyChanged("Order_Id");
+					this.OnOrder_IdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductCount", DbType="Int NOT NULL")]
+		public int ProductCount
+		{
+			get
+			{
+				return this._ProductCount;
+			}
+			set
+			{
+				if ((this._ProductCount != value))
+				{
+					this.OnProductCountChanging(value);
+					this.SendPropertyChanging();
+					this._ProductCount = value;
+					this.SendPropertyChanged("ProductCount");
+					this.OnProductCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PricePerPiece", DbType="Money NOT NULL")]
+		public decimal PricePerPiece
+		{
+			get
+			{
+				return this._PricePerPiece;
+			}
+			set
+			{
+				if ((this._PricePerPiece != value))
+				{
+					this.OnPricePerPieceChanging(value);
+					this.SendPropertyChanging();
+					this._PricePerPiece = value;
+					this.SendPropertyChanged("PricePerPiece");
+					this.OnPricePerPieceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderSuplierTiresOKPneu", Storage="_Order", ThisKey="Order_Id", OtherKey="Id", IsForeignKey=true)]
+		public Order Order
+		{
+			get
+			{
+				return this._Order.Entity;
+			}
+			set
+			{
+				Order previousValue = this._Order.Entity;
+				if (((previousValue != value) 
+							|| (this._Order.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Order.Entity = null;
+						previousValue.OrderSuplierTiresOKPneus.Remove(this);
+					}
+					this._Order.Entity = value;
+					if ((value != null))
+					{
+						value.OrderSuplierTiresOKPneus.Add(this);
+						this._Order_Id = value.Id;
+					}
+					else
+					{
+						this._Order_Id = default(int);
+					}
+					this.SendPropertyChanged("Order");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SuplierTiresOKpneu_OrderSuplierTiresOKPneu", Storage="_SuplierTiresOKpneu", ThisKey="SuplierTiresOKpneu_EAN", OtherKey="EAN", IsForeignKey=true)]
+		public SuplierTiresOKpneu SuplierTiresOKpneu
+		{
+			get
+			{
+				return this._SuplierTiresOKpneu.Entity;
+			}
+			set
+			{
+				SuplierTiresOKpneu previousValue = this._SuplierTiresOKpneu.Entity;
+				if (((previousValue != value) 
+							|| (this._SuplierTiresOKpneu.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SuplierTiresOKpneu.Entity = null;
+						previousValue.OrderSuplierTiresOKPneus.Remove(this);
+					}
+					this._SuplierTiresOKpneu.Entity = value;
+					if ((value != null))
+					{
+						value.OrderSuplierTiresOKPneus.Add(this);
+						this._SuplierTiresOKpneu_EAN = value.EAN;
+					}
+					else
+					{
+						this._SuplierTiresOKpneu_EAN = default(string);
+					}
+					this.SendPropertyChanged("SuplierTiresOKpneu");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
