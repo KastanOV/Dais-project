@@ -46,6 +46,5 @@ C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\bin\Microsoft.Owin.Se
 C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\bin\Microsoft.Owin.Security.OAuth.xml
-C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\obj\Release\KAS0110.csprojResolveAssemblyReference.cache
 C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\obj\Release\KAS0110.dll
 C:\Users\KastanNotas\Documents\GitHub\Dais-project\KAS0110\obj\Release\KAS0110.pdb

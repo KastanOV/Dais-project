@@ -7,7 +7,7 @@
     <asp:Table runat="server">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:TextBox ID="TextBoxSize" runat="server" ToolTip="Rozměr pneumatik zadávejte v profi formátu. Např: 1956515 <=> 195/65R15" OnTextChanged="TextBoxSize_TextChanged" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="TextBoxSize" runat="server" ToolTip="Rozměr pneumatik zadávejte v profi formátu. Např: 1956515 <=> 195/65R15" OnTextChanged="TextBoxSize_TextChanged" AutoPostBack="true" CssClass="form-control"></asp:TextBox>
             </asp:TableCell>
             <asp:TableCell>
                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSourceDropDownlist" DataTextField="Manufacturer" DataValueField="Manufacturer" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>

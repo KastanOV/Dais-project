@@ -174,7 +174,38 @@ begin
 	--print 'Somethin wrong'
 	--end catch
 end
+go
 
+create procedure [dbo].[InsertTire] @p_EAN varchar(14),@p_Manufacturer varchar(14) ,@p_Size int ,@p_ExternalStore int
+           ,@p_code varchar(15),@p_OnStore int,@p_Price money,@p_Name varchar(50),@p_season char
+           ,@p_Description varchar(2000),@p_Photo varchar(200)
+as
+begin
+	INSERT INTO [dbo].[SuplierTiresOKpneu]
+           ([EAN]
+           ,[Manufacturer]
+           ,[Size]
+           ,[ExternalStore]
+           ,[code]
+           ,[OnStore]
+           ,[Price]
+           ,[Name]
+           ,[season]
+           ,[Description]
+           ,[Photo])
+     VALUES
+          (@p_EAN
+           ,@p_Manufacturer
+           ,@p_Size
+           ,@p_ExternalStore
+           ,@p_code
+           ,0
+           ,@p_Price
+           ,@p_Name
+           ,@p_season
+           ,@p_Description
+           ,@p_Photo) 	
+end
 go
 
 create trigger WriteToPriceHistory on SuplierTiresOKpneu after update
